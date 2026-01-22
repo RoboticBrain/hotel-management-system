@@ -1,0 +1,1 @@
+<label class="form-label text-white">{{ $slot }}</label>
