@@ -23,15 +23,15 @@ class SessionController extends Controller
         }
         $currentUser = Auth::user();
         if($currentUser->isAdmin){
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('admin.dashboard'))->with('notification',['type'=>'success','message'=>'Admin logged in']);
         } 
         else {
-            return redirect()->intended(route('user.dashboard'));
+            return redirect()->intended(route('user.dashboard'))->with('notification',['type'=>'success','message'=>'User logged in']);
         }
    }
    public function destroy() {
         // dd(Auth::user());
         Auth::logout(); 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('notification',['type'=>'success','message'=>'User logged out']);
    }
 }

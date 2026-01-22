@@ -40,5 +40,8 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     // Customer controllers
     Route::get('/customers',  [CustomerController::class, 'index'])->name('admin.show.customers');
     Route::get('/profile/{customer}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/customer/{customer}/edit', [CustomerController::class, 'edit'])->name('admin.edit.customer');
+    Route::patch('/customer/{customer}/',[CustomerController::class,'update'])->name('admin.update.customer');
+    Route::delete('/customer/{customer}',[CustomerController::class,'destroy'])->name('admin.destroy.customer');
     
     });

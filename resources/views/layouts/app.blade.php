@@ -138,6 +138,21 @@
             </div>
         </div>
     </nav>
+    <!-- Notification -->
+    @if (session('notification'))
+        @php
+            $notification = session('notification');
+            $type = $notification['type'] ?? 'success';
+            $message = $notification['message'] ?? '';
+        @endphp
+
+        <div id="session-alert" class="alert alert-{{ $type }} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 shadow"
+            role="alert" style="z-index: 1050; min-width: 300px;">
+                {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
 
     <!-- Sidebar -->
     <aside class="collapse show collapse-horizontal col-sm-2 p-3 border-end bg-body-tertiary" id="sidebar">
@@ -223,3 +238,17 @@
     </script>
 </body>
 </html>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const alertBox = document.getElementById('session-alert');
+        if (alertBox) {
+            setTimeout(() => {
+                // Use Bootstrap 5 alert dispose method
+                const bsAlert = bootstrap.Alert.getOrCreateInstance(alertBox);
+                bsAlert.close();
+            }, 5000); // 3000ms = 3 seconds
+        }
+    });
+</script>
+

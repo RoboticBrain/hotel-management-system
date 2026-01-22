@@ -25,7 +25,7 @@ class RoomController extends Controller
             $validated['image'] = $filePath;
         }
         Room::create($validated);
-        return redirect()->back()->with('success','Room created successfully');
+        return redirect()->back()->with('notification',['type'=>'success','message'=>'Room created successfully']);
     }
     public function edit(Room $room) {
         return view('admin.dashboard.rooms.edit', compact('room'));
@@ -39,16 +39,16 @@ class RoomController extends Controller
             'price'       => 'required|string',
         ]);
         if($room->update($updated_data)){
-            return redirect()->route('admin.show.rooms')->with('sucess','Room updated sucessfully');
+            return redirect()->route('admin.show.rooms')->with('notification',['type'=>'success','message'=>'Room updated successfully']);
         }
     }
     public function destroy(Room $room){
         $deleted = $room->delete();
         if($deleted){
-            return redirect()->route('admin.show.rooms')->with('success','room successfully removed');
+            return redirect()->route('admin.show.rooms')->with('notification',['type'=>'success','message'=>'Room deleted successfully']);
         }
         else {
-            return redirect()->back()->with('message','Room unable to delete');
+            return redirect()->back()->with('notification',['type'=>'danger','message'=>"Room failed to delete"]);
         }
     }
 }

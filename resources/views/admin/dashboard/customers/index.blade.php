@@ -16,7 +16,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">id</th>
-                                    <th scope="col">customer name</th>
+                                    <th scope="col">user name</th>
                                     <th scope="col">role</th>
                                     <th scope="col">email</th>
                                     <th scope="col">address</th>
@@ -49,12 +49,12 @@
                                                    class="btn btn-sm btn-primary">
                                                     View
                                                 </a>
-
-                                                <a href="#" class="btn btn-sm btn-warning">
+                                                    
+                                                <a href="{{ route('admin.edit.customer',$customer->id) }}" class="btn btn-sm btn-warning">
                                                     Edit
                                                 </a>
 
-                                                <form action="{{ route('admin.destroy.room', 1) }}"
+                                                <form action="{{ route('admin.destroy.customer', $customer->id) }}"
                                                       method="POST"
                                                       class="d-inline">
                                                     @csrf
