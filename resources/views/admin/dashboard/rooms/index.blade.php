@@ -43,7 +43,7 @@
                         <td>{{ $room->room_type }}</td>
                         <td>{{ $room->price }}</td>
                         <td>
-                            <span class="badge bg-success">{{ $room->status }}</span>
+                            <span class="badge bg-{{ $room->status == 'Available' ? 'success':'danger' }}">{{ $room->status }}</span>
                         </td>
                         <td class="text-end">
                             <a href="{{ route('admin.edit.room', $room->id) }}" class="btn btn-sm btn-warning me-1">Edit</a>

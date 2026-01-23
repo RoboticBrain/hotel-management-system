@@ -40,7 +40,7 @@ class CustomerController extends Controller
             return redirect()->back()->with('notification',['type'=>'danger', 'message'=>"Admins can't be deleted"]);
         }
         else {
-            if($customer->delete()){
+            if($customer->delete() && $customer->user->delete()){
                 return redirect()->back()->with('notification', ['type'=>'success', 'message'=>'User deleted successfully']);
             }
         }

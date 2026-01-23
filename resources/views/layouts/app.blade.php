@@ -10,7 +10,7 @@
     <title>@yield('title', 'Dashboard')</title>
 
     <!-- Vite CSS/JS -->
-    @vite(['resources/css/main.css', 'resources/js/color-modes.js'])
+    @vite(['resources/css/app.css', 'resources/js/color-modes.js'])
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
