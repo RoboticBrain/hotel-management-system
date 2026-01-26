@@ -19,10 +19,10 @@ class CustomerFactory extends Factory
     {
         
         return [
-            'first_name' => fake()->firstName,
-            'last_name'=> fake()->lastName,
-            'address' => fake()->address,
-            'phone_number' => fake()->phoneNumber,
+            'first_name' => fake()->firstName(),
+            'last_name'=> fake()->lastName(),
+            'address' => fake()->address(),
+            'phone_number' => fake()->phoneNumber(),
             'user_id' => User::factory()->create()->id,
         ];
      

@@ -26,7 +26,7 @@
                         <th>Type</th>
                         <th>Price</th>
                         <th>Status</th>
-                        <th class="text-end">Actions</th>
+                        <th style="text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@
                         <td>
                             <span class="badge bg-{{ $room->status == 'Available' ? 'success':'danger' }}">{{ $room->status }}</span>
                         </td>
-                        <td class="text-end">
+                        <td style="text-align: center;">
                             <a href="{{ route('admin.edit.room', $room->id) }}" class="btn btn-sm btn-warning me-1">Edit</a>
                             <form action="{{ route('admin.destroy.room', $room->id) }}" method="POST" class="d-inline">
                                 @csrf
