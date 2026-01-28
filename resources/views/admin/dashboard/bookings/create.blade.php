@@ -16,20 +16,42 @@
                             @csrf
                             
                             <div class="mt-3">
-                                <x-label>Customer</x-label>
-                                <x-input type="text" name="customer"></x-input>
+                                <x-label>Select Customer</x-label>
+                                <select name="customer_id" id="customer"  class="form-control" style="height:50px;" >
+                                    @foreach ($customers as $customer)
+                                        @if(!$customer->user->isAdmin)
+                                            <option value="{{ $customer->user_id }}" >{{ $customer->first_name }}   {{ $customer->last_name }} </option>
+                                        @endif
+                                    @endforeach
+                                </select>
                                 <x-error name="customer"></x-error>
                             </div>
-                            <div class="mt-3">
-                            <x-label>Room Type</x-label>
-                            <x-input type="text" name="room_number"></x-input>
-                            <x-error name="room_type"></x-error>
-                            </div>
-                            <div class="mt-3">
-                                <x-label>Room Number</x-label>
-                                <x-input type="text" name="room_number" :value="old('room_number')"></x-input>
+                              <div class="mt-3">
+                                <x-label>Select Available Room </x-label>
+                                <select name="room_number" id="room"  class="form-control" style="height:50px;">
+                                    @foreach ($rooms as $room )
+                                        @if($rooms->count() == 0)
+                                            <option>No rooms available</option> 
+                                            @break    
+                                        @else 
+                                            <option value="{{ $room->room_number }}">{{ $room->room_number }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                                 <x-error name="room_number"></x-error>
                             </div>
+                            
+                             <div class="mt-3">
+                                <x-label>Check in</x-label>
+                                <input type="date" name="check-in" class="form-control" style="height:50px;">
+                                <x-error name="check-in"></x-error>
+                            </div>
+                             <div class="mt-3">
+                                <x-label>Check out</x-label>
+                                <input type="date" name="check-out" class="form-control" style="height:50px;">
+                                <x-error name="check-out"></x-error>
+                            </div>
+                        
                          
                             <button class="btn btn-success w-100 mt-4" type="submit">
                                 Add Booking
