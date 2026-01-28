@@ -20,7 +20,7 @@
                             
                             <div class="mt-3">
                                 <x-label>Room Number</x-label>
-                                <x-input type="password" name="room_number" :value="old('room_number')"></x-input>
+                                <x-input type="text" name="room_number" :value="old('room_number')"></x-input>
                             </div>
 
                             <div class="mt-3">

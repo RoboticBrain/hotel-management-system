@@ -183,7 +183,7 @@
         </x-nav-link>
     </li>
     <li>
-        <x-nav-link class="bi bi-table" :href="route('admin.dashboard.booking')" :active="request()->is('admin/dashboard/bookings')">
+        <x-nav-link class="bi bi-table" :href="route('admin.show.bookings')" :active="request()->is('admin/dashboard/bookings')">
             Bookings
         </x-nav-link>
     </li>

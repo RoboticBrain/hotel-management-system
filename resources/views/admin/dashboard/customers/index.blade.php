@@ -68,10 +68,15 @@
                                     <td>{{ $index + 1 }}</td>
 
                                     <td>
-                                        {{ $customer->first_name }} {{ $customer->last_name }}
-                                        @if($customer->user->isAdmin)
+                                       
+                                        @if($customer->user->isAdmin && Auth()->id() == $customer->id)
+                                            {{ $customer->first_name }}
                                             <span class="badge bg-success ms-1">You</span>
-                                        @endif
+                                   
+                                        @else
+                                              {{ $customer->first_name }} {{ $customer->last_name }}
+                                        
+     @endif
                                     </td>
 
                                     <td>

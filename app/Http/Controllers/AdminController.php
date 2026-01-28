@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Booking;
-use App\Models\Customer;
 
 class AdminController extends Controller
 {

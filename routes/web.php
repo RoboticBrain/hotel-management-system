@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
@@ -29,7 +30,6 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     // Admin controllers
     Route::get('/home',[AdminController::class,'home'])->name('admin.dashboard.home');
     Route::get('/',[AdminController::class,'dashboard'])->name('admin.dashboard');
-    Route::get('/bookings',[AdminController::class,'bookings'])->name('admin.dashboard.booking');
     // Rooms controllers
     Route::get( '/rooms',[RoomController::class,'index'])->name('admin.show.rooms');
     Route::get( '/room/create',[RoomController::class,'create'])->name('admin.create.room');
@@ -43,5 +43,10 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::get('/customer/{customer}/edit', [CustomerController::class, 'edit'])->name('admin.edit.customer');
     Route::patch('/customer/{customer}/',[CustomerController::class,'update'])->name('admin.update.customer');
     Route::delete('/customer/{customer}',[CustomerController::class,'destroy'])->name('admin.destroy.customer');
-    
+    // Bookings controllers
+    Route::get('/bookings',[BookingsController::class,'index'])->name('admin.show.bookings');
+    Route::get('/bookings/edit/{booking}',[BookingsController::class,'edit'])->name('admin.booking.edit');
+    Route::get('/booking/create',[BookingsController::class,'create'])->name('admin.create.booking');
+    Route::post('/booking/create',[BookingsController::class,'store'])->name('admin.store.booking');
+
     });
