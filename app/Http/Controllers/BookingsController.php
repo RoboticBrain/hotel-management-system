@@ -6,13 +6,10 @@ use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Room;
 use Illuminate\Http\Request as HttpRequest;
-use Symfony\Component\HttpFoundation\Request;
-
 class BookingsController extends Controller
 {
     public function index() {
-        $bookings = Room::with('customers')->get();
-        
+        $bookings = Booking::with(['room','customer'])->get();
         return view('admin.dashboard.bookings.index',compact('bookings'));
     }
     public function edit(Booking $booking) {
@@ -49,5 +46,8 @@ class BookingsController extends Controller
        else {
             return redirect()->back()->with('notification', ['type'=>'danger','message'=> 'Booking failed']);
        }
+    }
+    public function getStatus() {
+        
     }
 }

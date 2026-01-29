@@ -48,5 +48,6 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::get('/bookings/edit/{booking}',[BookingsController::class,'edit'])->name('admin.booking.edit');
     Route::get('/booking/create',[BookingsController::class,'create'])->name('admin.create.booking');
     Route::post('/booking/create',[BookingsController::class,'store'])->name('admin.store.booking');
+    Route::get('/booking/{booking}',[BookingsController::class,'destroy'])->name('admin.booking.destroy');
 
     });

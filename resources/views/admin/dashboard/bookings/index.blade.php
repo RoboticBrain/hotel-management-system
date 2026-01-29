@@ -55,7 +55,6 @@
                 <h5 class="card-header">List</h5>
 
                 <div class="card-body p-2">
-                    <!-- DO NOT use table-responsive -->
                     <table class="table fixed-table align-middle mb-0">
                         <thead class="table-dark">
                             <tr>
@@ -65,38 +64,41 @@
                                 <th style="width:8%">R-Number</th>
                                 <th style="width:12%">Check-in</th>
                                 <th style="width:13%">Check-out</th>
-                                <th style="width:13%">Room Status</th>
+                                <th style="width:13%">Status</th>
                                 <th style="width:13%">Payment Status</th>
                                 <th style="width:15%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            @foreach ($bookings as $booking)
-                                <tr>
-                                
-                                    @foreach ($booking->customers as $index => $customer )
-                                        <td>{{ $customer->id + 50}} </td>
-                                        <td>{{ $customer->first_name}}</td>
-                                        <td>{{ $booking->room_type}}</td>
-                                        <td>{{ $booking->room_number}}</td>
-                                        <td>{{ $customer->pivot->checked_in }}</td>
-                                        <td>{{ $customer->pivot->checked_out }}</td>
-                                        <td><span class="badge bg-success ms-1">{{ $booking->status }}</span></td>
-                                        <td> <span class="badge bg-success">{{ $customer->pivot->payment_status ?? "paid"}}</span></td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <a href="{{ route('admin.booking.edit',1) }}"class="btn btn-sm btn-warning">Edit</a>
-                                                <form action="" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                </form>
-                                            </div>
-                                        </td> 
-                                </tr>
-                                @endforeach
-                            @endforeach
+                           @foreach ($bookings as $booking)
+<tr>
+    <td>{{ $booking->id + 50 }}</td>
+    <td>{{ $booking->customer->first_name }}</td>
+    <td>{{ $booking->room->room_type }}</td>
+    <td>{{ $booking->room->room_number }}</td>
+    <td>{{ $booking->checked_in}}</td>
+    <td>{{ $booking->checked_out }}</td>
+    <td>
+        
+        <span class="badge bg-success ms-1">{{ $booking->room_status }}</span>
+    </td>
+    <td>
+        <span class="badge bg-success">
+            {{ $booking->payment_status ?? "paid" }}
+        </span>
+    </td>
+    <td>
+        <div class="action-buttons">
+            <a href="{{ route('admin.booking.edit', $booking->id) }}" class="btn btn-sm btn-warning">Edit</a>
+            <form action="{{ route('admin.booking.destroy', $booking->id) }}" method="POST" style="display:inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </div>
+    </td>
+</tr>
+@endforeach
                         </tbody>
                     </table>
 

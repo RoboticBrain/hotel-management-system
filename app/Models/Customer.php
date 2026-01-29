@@ -13,7 +13,7 @@ class Customer extends Model
     function user() {
         return $this->belongsTo(User::class);
     }
-     public function rooms() {
-        return $this->hasMany(Booking::class,'room_id');
+     public function room() {
+        return $this->hasManyThrough(Room::class,Booking::class,'customer_id','id','id','room_id');
     }
 }
