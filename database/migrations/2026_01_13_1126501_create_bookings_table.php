@@ -18,7 +18,8 @@ return new class extends Migration
             $table->date('checked_in');
             $table->date('checked_out');
             $table->string('room_status'); //booked or not
-            $table->string('payment_status')->default('confirmed');
+            $table->string('payment_status')->default('pending');
+            $table->timestamp('cancelled_at')->nullable();
             $table->timestamps();
         });
     }

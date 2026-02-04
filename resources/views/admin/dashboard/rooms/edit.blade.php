@@ -41,7 +41,7 @@
                             <!-- Room Status -->
                             <div class="mt-3">
                                 <x-label>Room Status</x-label>
-                                <x-select name="status" :options="['Available','Booked']" selected="{{ $room->status }}"></x-select>
+                                <x-input name="status" value="{{ $room->status }}" readonly></x-input>
                             </div>
 
                             <!-- Submit Button -->

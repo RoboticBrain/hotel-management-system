@@ -45,9 +45,10 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::delete('/customer/{customer}',[CustomerController::class,'destroy'])->name('admin.destroy.customer');
     // Bookings controllers
     Route::get('/bookings',[BookingsController::class,'index'])->name('admin.show.bookings');
-    Route::get('/bookings/edit/{booking}',[BookingsController::class,'edit'])->name('admin.booking.edit');
     Route::get('/booking/create',[BookingsController::class,'create'])->name('admin.create.booking');
     Route::post('/booking/create',[BookingsController::class,'store'])->name('admin.store.booking');
-    Route::get('/booking/{booking}',[BookingsController::class,'destroy'])->name('admin.booking.destroy');
+    Route::get('bookings/edit/{booking}',[BookingsController::class,'edit'])->name('admin.booking.edit');
+    Route::patch('/booking/{booking}',[BookingsController::class,'update'])->name('admin.booking.update');
+    Route::delete('/booking/{booking}',[BookingsController::class,'destroy'])->name('admin.booking.destroy');
 
     });

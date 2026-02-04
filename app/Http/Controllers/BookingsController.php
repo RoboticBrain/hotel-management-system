@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Room;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 class BookingsController extends Controller
 {
     public function index() {
@@ -13,7 +13,26 @@ class BookingsController extends Controller
         return view('admin.dashboard.bookings.index',compact('bookings'));
     }
     public function edit(Booking $booking) {
-        return view('admin.dashboard.bookings.edit',  $booking);
+        if($booking->customer_status == 'Checked_out' || $booking->customer_status == 'Cancelled'){
+            return redirect()->back()->with('notification',['type'=>'danger','message' => 'Cannot edit. ']);
+        }
+        return view('admin.dashboard.bookings.edit', compact('booking'));
+    }
+    public function update(Booking $booking, Request $request) {
+        $validated = $request->validate([
+            'check_in' => 'required|date',
+            'check_out' => 'required|date',
+        ]);
+
+       $success = $booking->update([
+            'checked_in' => $validated['check_in'],
+            'checked_out' => $validated['check_out'],
+       ]);
+       if(!$success){
+            return redirect()->back()->with('notification', ['type'=>'danger', 'message' => 'Booking failed to update']);
+       }
+        return redirect()->route('admin.show.bookings')->with('notification', ['type'=>'success', 'message' => 'Booking updated successfully']);
+        
     }
     public function create() {
         $customers = Customer::orderBy('first_name')->get();
@@ -21,20 +40,20 @@ class BookingsController extends Controller
         // dd($rooms->count());
         return view('admin.dashboard.bookings.create', compact('customers','rooms'));
     }
-    public function store(HttpRequest $request) {
+    public function store(Request $request) {
         $validated = $request->validate([
             'customer_id' => 'required',
             'room_number' => 'required',
-            'check-in' => 'required|date',
-            'check-out' => 'required|date',
+            'check_in' => 'required|date',
+            'check_out' => 'required|date',
         ]);
         $room_id = Room::where('room_number',$validated['room_number'])->get('id')[0]->id;
     
         Booking::create([
             'customer_id' => $validated['customer_id'],
             'room_id' => $room_id,
-            'checked_in' => $validated['check-in'],
-            'checked_out' => $validated['check-out'],
+            'checked_in' => $validated['check_in'],
+            'checked_out' => $validated['check_out'],
             'room_status' => 'Booked',
             'payment_status' => 'completed',
         ]);
@@ -43,11 +62,16 @@ class BookingsController extends Controller
        if($updated){
             return redirect()->route('admin.show.bookings')->with('notification', ['type'=>'success','message'=> 'Booking created']);
        }
-       else {
-            return redirect()->back()->with('notification', ['type'=>'danger','message'=> 'Booking failed']);
-       }
     }
-    public function getStatus() {
-        
+    public function destroy(Booking $booking) { 
+        if($booking->customer_status == 'Checked_out' || $booking->customer_status == 'Checked_in'){
+            return redirect()->back()->with('notification',['type'=>'danger','message' => 'Cannot cancel. Customer already checked in']);
+        }
+        $booking->cancelled_at = now();
+        $booking->save();
+        // dd($booking->cancelled_at);
+        return redirect()->route('admin.show.bookings')->with('notification',['type'=> 'success','message' => 'Booking cancelled successfully']);
+      
     }
+
 }

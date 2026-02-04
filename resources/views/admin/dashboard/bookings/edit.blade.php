@@ -10,25 +10,19 @@
             <div class="col-lg-6">
                 <div class="card border-0">
                     <div class="card-body p-2" style="background-color: rgb(43, 48, 53);">
-                        <form method="post" action="">
+                        <form method="post" action="{{ route('admin.booking.update',$booking->id) }}">
                             @csrf
                             @method('PATCH')
-
                             <!-- Room Type -->
                             <div class="mt-3">
-                                <x-label>Room Number</x-label>
-                                <x-input name="room_number" value=""></x-input>
-                                <x-error name="room_number"></x-error>
-                            </div>
-                            <div class="mt-3">
-                                <x-label>Check-in</x-label>
-                                <x-input name="check-in" value=""></x-input>
-                                <x-error name="check-in"></x-error>
+                                <x-label>check_in</x-label>
+                                <x-input type="date" name="check_in" value="{{ $booking->checked_in }}" />
+                                <x-error name="check_in"></x-error>
                             </div>
                             <div class="mt-3">
                                 <x-label>Check-out</x-label>
-                                <x-input name="check-out" value=""></x-input>
-                                <x-error name="check-out"></x-error>
+                                <x-input type="date" name="check_out" value="{{ $booking->checked_out }}"></x-input>
+                                <x-error name="check_out"></x-error>
                             </div>
 
                             <!-- Room Number -->

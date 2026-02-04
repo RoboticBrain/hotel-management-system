@@ -62,8 +62,8 @@
                                 <th style="width:8%">Customer</th>
                                 <th style="width:8%">R-Type</th>
                                 <th style="width:8%">R-Number</th>
-                                <th style="width:12%">Check-in</th>
-                                <th style="width:13%">Check-out</th>
+                                <th style="width:12%">Check in</th>
+                                <th style="width:13%">Check out</th>
                                 <th style="width:13%">Status</th>
                                 <th style="width:13%">Payment Status</th>
                                 <th style="width:15%">Actions</th>
@@ -71,32 +71,31 @@
                         </thead>
                         <tbody>
                            @foreach ($bookings as $booking)
-<tr>
-    <td>{{ $booking->id + 50 }}</td>
-    <td>{{ $booking->customer->first_name }}</td>
-    <td>{{ $booking->room->room_type }}</td>
-    <td>{{ $booking->room->room_number }}</td>
-    <td>{{ $booking->checked_in}}</td>
-    <td>{{ $booking->checked_out }}</td>
-    <td>
-        
-        <span class="badge bg-success ms-1">{{ $booking->room_status }}</span>
-    </td>
-    <td>
-        <span class="badge bg-success">
-            {{ $booking->payment_status ?? "paid" }}
-        </span>
-    </td>
-    <td>
-        <div class="action-buttons">
-            <a href="{{ route('admin.booking.edit', $booking->id) }}" class="btn btn-sm btn-warning">Edit</a>
-            <form action="{{ route('admin.booking.destroy', $booking->id) }}" method="POST" style="display:inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-            </form>
-        </div>
-    </td>
+                                <tr>
+                                    <td>{{ $booking->customer->id + 50 }}</td>
+                                    <td>{{ $booking->customer->first_name }}</td>
+                                    <td>{{ $booking->room->room_type }}</td>
+                                    <td>{{ $booking->room->room_number }}</td>
+                                    <td>{{ $booking->checked_in}}</td>
+                                    <td>{{ $booking->checked_out }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ $booking->customer_status === 'Checked_out' || 'Cancelled' ? 'danger': 'success' }} ms-1">{{ $booking->customer_status }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-success">
+                                            {{ $booking->payment_status ?? "pending"}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                <div class="action-buttons">
+                                    <a href="{{ route('admin.booking.edit', $booking->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    <form action="{{ route('admin.booking.destroy', $booking->id) }}" method="POST" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                    </form>
+                                </div>
+                            </td>
 </tr>
 @endforeach
                         </tbody>

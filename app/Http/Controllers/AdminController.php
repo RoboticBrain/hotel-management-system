@@ -13,16 +13,11 @@ class AdminController extends Controller
         return view('admin.dashboard.home');
     }
     public function dashboard() {
-        $no_of_room = Room::count();
-        $no_of_users = User::count();
-        $no_of_bookings = Booking::count();
+        $total_rooms = Room::count();
+        $total_users = User::count();
+        $total_bookings = Room::where('status','Booked')->count();
+        $available_rooms = Room::where('status','Available')->count();
 
-        return view('admin.dashboard.dashboard',compact(['no_of_room','no_of_users','no_of_bookings']));
-    }
-
-    public function customers() {
-    }
-    public function bookings() {
-        return view('admin.dashboard.bookings');
+        return view('admin.dashboard.dashboard',compact(['total_rooms','total_users','total_bookings','available_rooms']));
     }
 }

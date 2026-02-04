@@ -19,17 +19,32 @@ class Booking extends Model
     }
     protected $casts = ['checked-in' => 'date','checked-out' => 'date'];
 
-    public function getRoomStatusAttribute(){
+    public function getCustomerStatusAttribute(){
         $today = now();
+        if(isset($this->cancelled_at)){
+            $this->room->status = 'Available';
+            $this->room->save();
+            $this->payment_status = 'returned';
+            $this->save();
+            return 'Cancelled';
+        }
         if($today->lt($this->checked_in)){
+            $this->room->status = 'Booked';
+            $this->room->save();
             return 'Confirmed';
         }
         if($today->between($this->checked_in,$this->checked_out)){
-            return 'checked in';
+            // dd($this);
+            $this->room->status = 'Booked';
+            $this->room->save();
+            return 'Checked_in';
         }
         if($today->gt($this->checked_out)){
-            return 'checked_out';
+            $this->room->status = "Available";
+            $this->room->save();
+            return 'Checked_out';
         }
+
 
     }
 

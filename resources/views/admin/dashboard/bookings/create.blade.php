@@ -43,13 +43,13 @@
                             
                              <div class="mt-3">
                                 <x-label>Check in</x-label>
-                                <input type="date" name="check-in" class="form-control" style="height:50px;">
-                                <x-error name="check-in"></x-error>
+                                <input type="date" name="check_in" class="form-control" style="height:50px;">
+                                <x-error name="check_in"></x-error>
                             </div>
                              <div class="mt-3">
                                 <x-label>Check out</x-label>
-                                <input type="date" name="check-out" class="form-control" style="height:50px;">
-                                <x-error name="check-out"></x-error>
+                                <input type="date" name="check_out" class="form-control" style="height:50px;">
+                                <x-error name="check_out"></x-error>
                             </div>
                         
                          

@@ -49,7 +49,7 @@
 
                             <!-- Submit Button -->
                             <button class="btn btn-success w-100 mt-4" type="submit">
-                                Update Room
+                                Update Customer
                             </button>
                         </form>
 
