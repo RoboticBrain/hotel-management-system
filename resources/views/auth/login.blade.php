@@ -50,10 +50,7 @@
                            class="form-control form-control-lg"
                            style="background-color: #d8d8d8"
                            value="{{ old('email') }}" />
-
-                    @error('email')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+                        <x-error name="email"></x-error>
                   </div>
 
                   <div data-mdb-input-init class="form-outline mb-4">
@@ -64,9 +61,7 @@
                            class="form-control form-control-lg"
                            style="background-color: #d8d8d8" />
 
-                    @error('password')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+                    <x-error name="password"></x-error>
                   </div>
 
                   <div class="pt-1 mb-4">

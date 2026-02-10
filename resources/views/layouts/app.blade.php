@@ -161,33 +161,60 @@
             <span>Sidebar</span>
         </a>
         <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+    @if(auth()->user()->isAdmin)
+        <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+            <x-nav-link class="bi bi-house" :href="route('admin.dashboard.home')" :active="request()->is('admin/dashboard/home')">
+                Home
+            </x-nav-link>
+        </li>
+        <li>
+            <x-nav-link class="bi bi-speedometer2" :href="route('admin.dashboard')" :active="request()->is('admin/dashboard')">
+                Dashboard
+            </x-nav-link>
+        </li>
+        <li>
+            <x-nav-link class="bi bi-grid" :href="route('admin.show.rooms')" :active="request()->is('admin/dashboard/rooms')">
+                Rooms
+            </x-nav-link>
+        </li>
+        <li>
+            <x-nav-link class="bi bi-person-circle" :href="route('admin.show.customers')" :active="request()->is('admin/dashboard/customers')">
+                Customers
+            </x-nav-link>
+        </li>
+        <li>
+            <x-nav-link class="bi bi-table" :href="route('admin.show.bookings')" :active="request()->is('admin/dashboard/bookings')">
+                Bookings
+            </x-nav-link>
+        </li>
+        </ul>
+
+    @else 
+        <ul class="nav nav-pills flex-column mb-auto">
     <li>
-        <x-nav-link class="bi bi-house" :href="route('admin.dashboard.home')" :active="request()->is('admin/dashboard/home')">
+        <x-nav-link class="bi bi-house" :href="route('user.dashboard.home')" :active="request()->is('user/dashboard/home')">
             Home
         </x-nav-link>
     </li>
     <li>
-        <x-nav-link class="bi bi-speedometer2" :href="route('admin.dashboard')" :active="request()->is('admin/dashboard')">
+        <x-nav-link class="bi bi-speedometer2" :href="route('user.dashboard')" :active="request()->is('user/dashboard')">
             Dashboard
         </x-nav-link>
     </li>
     <li>
-        <x-nav-link class="bi bi-grid" :href="route('admin.show.rooms')" :active="request()->is('admin/dashboard/rooms')">
-            Rooms
+        <x-nav-link class="bi bi-table" :href="route('user.show.bookings')" :active="request()->is('user/dashboard/bookings')">
+            My Bookings
         </x-nav-link>
     </li>
     <li>
-        <x-nav-link class="bi bi-person-circle" :href="route('admin.show.customers')" :active="request()->is('admin/dashboard/customers')">
-            Customers
+        <x-nav-link class="bi bi-door-closed" :href="route('user.show.rooms')" :active="request()->is('user/dashboard/rooms')">
+            Available Rooms
         </x-nav-link>
     </li>
-    <li>
-        <x-nav-link class="bi bi-table" :href="route('admin.show.bookings')" :active="request()->is('admin/dashboard/bookings')">
-            Bookings
-        </x-nav-link>
-    </li>
-</ul>
+    </ul>
+    @endif
+
 
         <hr>
         <!-- User Dropdown -->

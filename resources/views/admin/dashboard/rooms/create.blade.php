@@ -35,11 +35,6 @@
                             </div>
                          
 
-                            <div class="mt-4">
-                                <x-label>Room Image</x-label>
-                                <x-input type="file" onchange="previewImg(event)" name="image"></x-input>
-                               <x-error name="image"></x-error>
-                            </div>
 
                             <button class="btn btn-success w-100 mt-4" type="submit">
                                 Add Room

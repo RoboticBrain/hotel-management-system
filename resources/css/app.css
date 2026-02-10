@@ -1,0 +1,55 @@
+
+.room-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    transition: all 0.3s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+}
+
+.room-img {
+    height: 200px;
+    background: #000;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+.price-badge {
+    background: linear-gradient(135deg, #748277, #218838); /* green gradient */
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 4px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    z-index: 10;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.price-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+}
+
+#booking-card {
+    background-color: gray;    /* soft white */
+    border-radius: 14px;
+    border: 1px solid #e6e8eb;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+#booking-card #card-body {
+    padding: 1.5rem;
+}
+
+#booking-card #badge {
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+

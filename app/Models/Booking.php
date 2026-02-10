@@ -17,7 +17,7 @@ class Booking extends Model
     public function room() {
         return $this->belongsTo(Room::class,'room_id','id');
     }
-    protected $casts = ['checked-in' => 'date','checked-out' => 'date'];
+    protected $casts = ['checked_in' => 'date','checked_out' => 'date'];
 
     public function getCustomerStatusAttribute(){
         $today = now();

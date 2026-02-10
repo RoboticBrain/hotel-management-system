@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 class SessionController extends Controller
 {
@@ -14,7 +13,7 @@ class SessionController extends Controller
             "email"=> "required|email",
             "password"=> "required|min:5",
         ]);
-        // dd($validated);
+
         if(Auth::attempt($validated)){
             $request->session()->regenerate();        
         }
@@ -30,7 +29,6 @@ class SessionController extends Controller
         }
    }
    public function destroy() {
-        // dd(Auth::user());
         Auth::logout(); 
         return redirect()->route('login')->with('notification',['type'=>'success','message'=>'User logged out']);
    }
