@@ -7,9 +7,8 @@ use App\Http\Controllers\MyBookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserRoomController;
-use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +24,7 @@ Route::middleware('web')->group(function () {
 // Authentcated route for logout
 Route::middleware('auth')->group(function() {
     Route::post('/logout', [SessionController::class,'destroy'])->name('logout');
+    Route::get('/profile/{customer}', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 // Authenticated routes for Admin user
@@ -32,6 +32,8 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     // Admin controllers
     Route::get('/home',[AdminController::class,'home'])->name('admin.dashboard.home');
     Route::get('/',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/rooms/available',[AdminController::class,'available_rooms'])->name('dashboard.rooms.available');
+    Route::get('/rooms/booked',[AdminController::class,'booked_rooms'])->name('dashboard.rooms.booked');
     // Rooms controllers
     Route::get( '/rooms',[RoomController::class,'index'])->name('admin.show.rooms');
     Route::get( '/room/create',[RoomController::class,'create'])->name('admin.create.room');
@@ -41,7 +43,6 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::patch('/room/{room}/', [RoomController::class,'update'])->name('admin.update.room');
     // Customer controllers
     Route::get('/customers',  [CustomerController::class, 'index'])->name('admin.show.customers');
-    Route::get('/profile/{customer}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/customer/{customer}/edit', [CustomerController::class, 'edit'])->name('admin.edit.customer');
     Route::patch('/customer/{customer}/',[CustomerController::class,'update'])->name('admin.update.customer');
     Route::delete('/customer/{customer}',[CustomerController::class,'destroy'])->name('admin.destroy.customer');
@@ -59,13 +60,19 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
 
 // Authenticated routes for User
 Route::prefix('user/dashboard')->middleware('auth')->group(function() {
-    route::get('/',[UserController::class,'index'])->name('user.dashboard');
-    route::get('/home',[UserController::class,'home'])->name('user.dashboard.home');
+    route::get('/home',[UserDashboardController::class,'home'])->name('user.dashboard.home');
+    // User Dashboard controller routes
+    route::get('/',[UserDashboardController::class,'index'])->name('user.dashboard');
+    route::get('/active/bookings',[UserDashboardController::class,'active_bookings'])->name('user.dashboard.active.bookings');
+    route::get('/completed/bookings',[UserDashboardController::class,'completed_bookings'])->name('user.dashboard.completed.bookings');
+    route::get('/cancelled/bookings',[UserDashboardController::class,'cancelled_bookings'])->name('user.dashboard.cancelled.bookings');
+    
     // User room controllers
     route::get('/rooms',[UserRoomController::class,'index'])->name('user.show.rooms');
     route::get('/rooms/create/{room}',[UserRoomController::class,'create'])->name('user.create.room');
     route::post('/rooms/create/{room}',[UserRoomController::class,'store'])->name('user.book.room');
     // My bookings controller
     route::get('/bookings',[MyBookingController::class,'index'])->name('user.show.bookings');
+    
 
 });

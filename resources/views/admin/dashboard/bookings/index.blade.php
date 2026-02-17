@@ -12,14 +12,11 @@
         overflow-x: hidden !important;
     }
 
-    /* Lock table layout */
     .fixed-table {
         table-layout: fixed !important;
         width: 100% !important;
-        max-width: 100% !important;
     }
 
-    /* Force cells to stay inside */
     .fixed-table th,
     .fixed-table td {
         max-width: 0;
@@ -28,81 +25,115 @@
         white-space: nowrap;
     }
 
-    /* Button column safety */
     .action-buttons {
         display: flex;
         gap: 6px;
         flex-wrap: nowrap;
-        max-width: 100%;
-    }
-
-    .action-buttons form {
-        margin: 0;
     }
 </style>
 
 <div class="container-fluid px-2">
-     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="text-white">Manage Rooms</h3>
-        <a href="{{ route('admin.create.booking') }}">
-            <button class="btn btn-primary">+ Add Booking</button>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-white">Manage Bookings</h3>
+        <a href="{{ route('admin.create.booking') }}" class="btn btn-primary">
+            + Add Booking
         </a>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <div class="card w-100">
+
+            <div class="card w-100 shadow-sm">
                 <h5 class="card-header">List</h5>
 
                 <div class="card-body p-2">
                     <table class="table fixed-table align-middle mb-0">
                         <thead class="table-dark">
                             <tr>
-                                <th style="width:8%">User Id</th>
-                                <th style="width:8%">Customer</th>
+                                <th style="width:8%">User ID</th>
+                                <th style="width:10%">Customer</th>
                                 <th style="width:8%">R-Type</th>
                                 <th style="width:8%">R-Number</th>
-                                <th style="width:12%">Check in</th>
-                                <th style="width:13%">Check out</th>
-                                <th style="width:13%">Status</th>
-                                <th style="width:13%">Payment Status</th>
-                                <th style="width:15%">Actions</th>
+                                <th style="width:12%">Check In</th>
+                                <th style="width:12%">Check Out</th>
+                                <th style="width:12%">Status</th>
+                                <th style="width:12%">Payment</th>
+                                <th style="width:18%">Actions</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                           @foreach ($bookings as $booking)
-                                <tr>
-                                    <td>{{ $booking->customer->id + 50 }}</td>
-                                    <td>{{ $booking->customer->first_name }}</td>
-                                    <td>{{ $booking->room->room_type }}</td>
-                                    <td>{{ $booking->room->room_number }}</td>
-                                    <td>{{ $booking->checked_in}}</td>
-                                    <td>{{ $booking->checked_out }}</td>
-                                    <td>
-                                        <span class="badge bg-{{ $booking->customer_status === 'Checked_out' || 'Cancelled' ? 'danger': 'success' }} ms-1">{{ $booking->customer_status }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success">
-                                            {{ $booking->payment_status ?? "pending"}}
-                                        </span>
-                                    </td>
-                                    <td>
-                                <div class="action-buttons">
-                                    <a href="{{ route('admin.booking.edit', $booking->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    <form action="{{ route('admin.booking.destroy', $booking->id) }}" method="POST" style="display:inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
-                                    </form>
-                                </div>
-                            </td>
-</tr>
-@endforeach
+                        @foreach ($bookings as $booking)
+
+                            @php
+                                /* ===== STATUS COLOR LOGIC ===== */
+                                $status = strtolower($booking->customer_status);
+
+                                $statusClass = match($status) {
+                                    'checked_in'  => 'success',
+                                    'checked_out' => 'secondary',
+                                    'confirmed'   => 'primary',
+                                    'cancelled'   => 'danger',
+                                    default       => 'secondary',
+                                };
+
+                                $paymentClass = strtolower($booking->payment_status) === 'paid'
+                                    ? 'success'
+                                    : 'danger';
+                            @endphp
+
+                            <tr>
+                                <td>{{ $booking->customer->id + 50 }}</td>
+                                <td>{{ $booking->customer->first_name }}</td>
+                                <td>{{ $booking->room->room_type }}</td>
+                                <td>{{ $booking->room->room_number }}</td>
+                                <td>{{ $booking->checked_in->format('d M Y') }}</td>
+                                <td>{{ $booking->checked_out->format('d M Y') }}</td>
+
+                                <!-- STATUS -->
+                                <td>
+                                    <span class="badge bg-{{ $statusClass }}">
+                                        {{ str_replace('_',' ', ucfirst($booking->customer_status)) }}
+                                    </span>
+                                </td>
+
+                                <!-- PAYMENT -->
+                                <td>
+                                    <span class="badge bg-{{ $paymentClass }}">
+                                        {{ $booking->payment_status ?? 'Pending' }}
+                                    </span>
+                                </td>
+
+                                <!-- ACTIONS -->
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="{{ route('admin.booking.edit', $booking->id) }}"
+                                           class="btn btn-sm btn-warning">
+                                            Edit
+                                        </a>
+
+                                        <form action="{{ route('admin.booking.destroy', $booking->id) }}"
+                                              method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Cancel this booking?')">
+                                                Cancel
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        @endforeach
                         </tbody>
                     </table>
-
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>

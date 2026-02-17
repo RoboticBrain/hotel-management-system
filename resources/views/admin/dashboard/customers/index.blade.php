@@ -75,7 +75,7 @@
                                    
                                         @else
                                               {{ $customer->first_name }} {{ $customer->last_name }}
-                                        
+                                
      @endif
                                     </td>
 

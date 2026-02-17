@@ -189,6 +189,29 @@
             </x-nav-link>
         </li>
         </ul>
+        <hr>
+          <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+          Dashboard
+        </button>
+        <div class="collapse" id="home-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="{{ route('admin.dashboard') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
+            <li><a href="{{ route('admin.show.rooms') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Rooms</a></li>
+            <li><a href="{{ route('dashboard.rooms.booked') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Booked Rooms</a></li>
+            <li><a href="{{ route('dashboard.rooms.available') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Available Rooms</a></li>
+          </ul>
+        </div>
+      </li>     
+    </ul>
+         <ul class="list-unstyled ps-0">
+            <li class="border-top my-3"></li>
+                <ul class="list-unstyled fw-normal semi-bold p-2 ">
+                    <li><a href="{{ route('admin.create.room') }}" class="pb-2 bi bi-arrow-right text-decoration-none rounded link-body-emphasis"> Add Room</a></li>
+                    <li><a href="{{ route('admin.create.booking') }}" class="pb-2 bi bi-arrow-right text-decoration-none rounded link-body-emphasis"> Create Booking</a></li>
+                </ul>
+         </ul>
 
     @else 
         <ul class="nav nav-pills flex-column mb-auto">
@@ -217,8 +240,10 @@
 
 
         <hr>
+       
         <!-- User Dropdown -->
-        <div class="dropdown">
+    
+        <div class="dropdown" style="height:20vh; display:flex; align-items:end">
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>{{ auth()->user()->customer->first_name }}</strong>
@@ -227,6 +252,7 @@
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="{{ route('profile.show', auth()->user()->id) }}">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
+             
                 <li>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf

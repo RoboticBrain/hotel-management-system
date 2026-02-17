@@ -22,7 +22,7 @@ class CustomerFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name'=> fake()->lastName(),
             'address' => fake()->address(),
-            'phone_number' => fake()->phoneNumber(),
+            'phone_number' => '+92' . fake()->numerify('##########'),
             'user_id' => User::factory()->create()->id,
         ];
      

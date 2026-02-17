@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use Illuminate\Foundation\Auth\User;
 use App\Models\Room;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserRoomController extends Controller
@@ -22,7 +22,7 @@ class UserRoomController extends Controller
             'check_out' => 'required|date',
         ]);
         $room_id = $room->id;
-        $customer_id = auth()->user()->id;
+        $customer_id = Auth::user()->id;
     
         $updated = Booking::create([
             'room_id' => $room_id,
