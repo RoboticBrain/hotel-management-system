@@ -53,7 +53,7 @@
             </a>
         </div>
         <div class="col-md-4">
-            <a href="{{ route('dashboard.rooms.booked') }}" class="card-link">
+            <a href="{{ route('user.dashboard.payment.summary') }}" class="card-link">
                 <div class="card bg-info text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Total Amount Spent</h5>
@@ -62,9 +62,11 @@
                 </div>
             </a>
         </div>
+        <br>
 
     </div>
 </div>
+
 
 <style>
     /* Make the whole card clickable and stylish */

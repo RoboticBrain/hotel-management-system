@@ -21,6 +21,9 @@ class UserRoomController extends Controller
             'check_in' => 'required|date',
             'check_out' => 'required|date',
         ]);
+        if($validated['check_in'] == $validated['check_out']){
+            return redirect()->back()->with('notification', ['type' => 'danger', 'message' => 'check in and check out date cannot be the same']);
+        }
         $room_id = $room->id;
         $customer_id = Auth::user()->id;
     
@@ -32,7 +35,7 @@ class UserRoomController extends Controller
             'room_status' => 'Booked',
             'payment_status' => 'paid',
         ]);
-
+        
         if(!$updated){
             return redirect()->back()->with('notification', ['type' => 'danger','message' => 'Some error occured' ]);
         }
@@ -41,7 +44,14 @@ class UserRoomController extends Controller
         
         return redirect()->back()->with('notification', ['type' => 'success','message' => 'Room booked successfully' ]);
 
-   
+    }
+    public function available_rooms() {
+        $available_rooms = Room::where('status','Available')->get();
+        return view('user.dashboard.rooms.available', compact('available_rooms'));
+    }
+    public function booked_rooms() {
+        $booked_rooms = Room::where('status','Booked')->get();
+        return view('admin.dashboard.booked_rooms', compact('booked_rooms'));
     }
 }
 

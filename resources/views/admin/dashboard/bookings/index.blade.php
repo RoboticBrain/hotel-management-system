@@ -7,10 +7,7 @@
 
 <style>
     /* ===== HARD STOP HORIZONTAL SCROLL ===== */
-    html, body, .container-fluid, .row, .col-12 {
-        max-width: 100vw;
-        overflow-x: hidden !important;
-    }
+ 
 
     .fixed-table {
         table-layout: fixed !important;

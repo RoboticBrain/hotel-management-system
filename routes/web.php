@@ -66,11 +66,14 @@ Route::prefix('user/dashboard')->middleware('auth')->group(function() {
     route::get('/active/bookings',[UserDashboardController::class,'active_bookings'])->name('user.dashboard.active.bookings');
     route::get('/completed/bookings',[UserDashboardController::class,'completed_bookings'])->name('user.dashboard.completed.bookings');
     route::get('/cancelled/bookings',[UserDashboardController::class,'cancelled_bookings'])->name('user.dashboard.cancelled.bookings');
+    route::get('/payment/summary',[UserDashboardController::class,'payment_summary'])->name('user.dashboard.payment.summary');
     
     // User room controllers
     route::get('/rooms',[UserRoomController::class,'index'])->name('user.show.rooms');
     route::get('/rooms/create/{room}',[UserRoomController::class,'create'])->name('user.create.room');
     route::post('/rooms/create/{room}',[UserRoomController::class,'store'])->name('user.book.room');
+    route::get('/rooms/available',[UserRoomController::class,'available_rooms'])->name('user.show.rooms.available');
+    route::get('/rooms/booked',[UserRoomController::class,'booked_rooms'])->name('user.show.rooms.booked');
     // My bookings controller
     route::get('/bookings',[MyBookingController::class,'index'])->name('user.show.bookings');
     

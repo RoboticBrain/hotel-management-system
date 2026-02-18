@@ -7,7 +7,7 @@
 
 <style>
     /* ===== HARD STOP HORIZONTAL SCROLL ===== */
-    html, body, .container-fluid, .row, .col-12 {
+    html, body {
         max-width: 100vw;
         overflow-x: hidden !important;
     }

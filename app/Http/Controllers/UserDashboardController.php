@@ -30,6 +30,16 @@ class UserDashboardController extends Controller
         $cancelled_bookings = Booking::where('customer_id', $this->getCustomerID())->whereNotNull('cancelled_at');
         return $cancelled_bookings;
     }
+    public function getTotalPayment() {
+    $totalPay = $this->getCompleteBookings()->get()->sum(function ($booking) {
+        $days = $booking->checked_in
+            ->copy()
+            ->startOfDay()
+            ->diffInDays($booking->checked_out->copy()->startOfDay()) + 1;
+        return (int) str_replace('$','',$booking->room->price) * (int)$days;
+        });
+        return $totalPay;
+    }
 
   
     public function index() {
@@ -40,13 +50,7 @@ class UserDashboardController extends Controller
         $upcoming_bookings = Booking::where('customer_id', $this->getCustomerID())->whereDate('checked_in','>', $this->getTodayDate())->count();
         $cancelled_bookings = $this->getCancelledBookings()->count();
         $bookings  = Booking::with('room')->where('customer_id',$this->getCustomerID())->whereNull('cancelled_at')->get();
-        $totalAmountSpent = $this->getCompleteBookings()->get()->sum(function ($booking){
-            $days = $booking->checked_in
-                    ->copy()
-                    ->startOfDay()
-                    ->diffInDays($booking->checked_out->copy()->startOfDay()) + 1;
-                    return (int) str_replace('$','',$booking->room->price) * (int)$days;
-        });
+        $totalAmountSpent = $this->getTotalPayment();
 
         return view('user.dashboard.dashboard', compact(
             'my_bookings',
@@ -72,5 +76,10 @@ class UserDashboardController extends Controller
     public function cancelled_bookings() {
         $cancelled_bookings = $this->getCancelledBookings()->get();
         return view('user.dashboard.cancelled_bookings',compact('cancelled_bookings'));
+    }
+    public function payment_summary() {
+        $bookings = $this->getCompleteBookings()->get();
+        $totalPay = $this->getTotalPayment();
+        return view('user.dashboard.total_spending',compact('bookings','totalPay'));
     }
 }

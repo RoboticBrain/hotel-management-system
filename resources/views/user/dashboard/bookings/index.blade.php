@@ -1,100 +1,145 @@
 @extends('layouts.app')
 
-@section('title', 'Bookings')
-@section('selection', 'Bookings')
+@section('title', 'My Bookings')
+@section('selection', 'My Bookings')
 
 @section('content')
-<div class="container py-4">
+
+<div class="container py-5">
     @if($user_bookings->count() < 1)
-        <div><h2 class="text-white badge bg-danger fs-4">No Bookings so far</h2></div>
+        <h3 class="text-white mb-4 badge bg-danger fs-4 rounded">No Bookings so far</h3>
     @else
         <h3 class="mb-4 text-white">My Bookings</h3>
+
         <div class="row g-4">
             @foreach ($user_bookings as $booking)
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-lg rounded-4 fancy-card"
-                        style="transition: transform 0.3s, box-shadow 0.3s;">
+                <div class="col-md-6 col-lg-4">
+                    <div class="booking-card">
 
-                        <!-- Card Header -->
-                        <div class="card-header fw-bold text-white rounded-top-4"
-                            style="background: linear-gradient(135deg, #4e5d6c, #2c343b);
-                                    border-bottom: 1px solid rgba(255,255,255,0.2);
-                                    text-align: center;
-                                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);">
-                            {{ $booking->room->room_type }} Bed Room ({{ $booking->room->room_number }})
-                        </div>
+                        <!-- Room Image -->
+                        <img src="{{ asset('storage/' . $booking->room->image) }}" 
+                             class="w-100 booking-img" 
+                             alt="Room Image">
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0 fw-bold">{{ ucfirst($booking->room->room_type) }} Bed Room</h5>
+                                @php
+                                    switch($booking->customer_status){
+                                        case 'Cancelled':
+                                            $type = 'danger';
+                                            break;
+                                        case 'Checked_out':
+                                            $type = 'secondary';
+                                            break;
+                                        case 'Checked_in':
+                                            $type = 'primary';
+                                            break;
+                                        default:
+                                            $type = 'info';
+                                            break;
+                                    }
+                                @endphp
+                               <span class="status-badge bg-{{ $type  }} "> {{ strtoupper($booking->customer_status) }} </span>
+                            </div>
 
-                        @php
-                            $checkIn  = $booking->checked_in->startOfDay();
-                            $checkOut = $booking->checked_out->startOfDay();
-                            $totalDays = $checkIn->diffInDays($checkOut) + 1;
-                        @endphp
+                            @php
+                                $checkIn  = $booking->checked_in->startOfDay();
+                                $checkOut = $booking->checked_out->startOfDay();
+                                $totalDays = $checkIn->diffInDays($checkOut) + 1;
+                            
+                            @endphp
+                            <div class="d-flex justify-content-between align-items-end">
+                                <ul class="list-unstyled mt-3 booking-info">
+                                @if($booking->customer_status == 'Checked_out')
+                                    <li><strong>Checked in:</strong> {{ $booking->checked_in->format('d M Y') }}</li>
+                                    <li><strong>Checked out:</strong> {{ $booking->checked_out->format('d M Y') }}</li>
+                                    <li><strong>Total stays:</strong> {{ $totalDays ?? 2 }}</li>
+                            
+                                @elseif($booking->customer_status == 'Checked_in')
+                                    <li><strong>Room No:</strong> {{ $booking->room->room_number }}</li>
+                                    <li><strong>Checked in :</strong> {{ Carbon\Carbon::parse($booking->checked_in)->format('d M Y  h:i A') }}</li>
+                                    <li><strong>Check out :</strong> {{ Carbon\Carbon::parse($booking->checked_out)->format('d M Y  h:i A') }}</li>
+                                @elseif($booking->customer_status == 'Cancelled')
+                                    <li><strong>Room No:</strong> {{ $booking->room->room_number }}</li>
+                                    <li><strong>Cancelled on:</strong> {{ Carbon\Carbon::parse($booking->cancelled_at)->format('d M Y h:i A') }}</li>
 
-                        <div class="card-body text-white">
-                            <p class="card-text"><strong>Check-in:</strong> {{ $booking->checked_in->format('d M Y') }}</p>
-                            <p class="card-text"><strong>Check-out:</strong> {{ $booking->checked_out->format('d M Y') }}</p>
-                            <p class="card-text"><strong>Days:</strong> {{ $totalDays }}</p>
-                            <p class="card-text"><strong>Total: $</strong>{{ (int) str_replace('$','',$booking->room->price) * $totalDays }}</p>
-                            <span class="badge rounded-pill status-badge">
-                                {{ $booking->customer_status }}
-                            </span>
+                                @endif
+                                </ul>
+                                <div class="price-box ms-3">
+                                    <div class="text-end">
+                                        <div class="small text-secondary">Per Night</div>
+                                        <div class="fw-semibold fs-6 text-light">{{ $booking->room->price }}</div>
+                                    </div>
+
+                                    <div class="price-divider my-2"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-         <p class="mt-3 text-white">
-        <i class="bi bi-info-circle"></i> Bookings are read-only. Please contact reception for any changes.
-    </p>
+    @endif
 </div>
-        @endif
 
-   
-
+@endsection
 <style>
-/* Card background, shadow and hover effect */
-.fancy-card {
-    background-color: rgba(60, 70, 80, 0.85); /* lighter than main bg */
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-}
-.fancy-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.7), inset 0 0 10px rgba(255,255,255,0.05);
+body {
+    background-color: #1f2937;
 }
 
-/* Status badge colors */
+.booking-card {
+    background: linear-gradient(145deg, #2b3545, #232b38);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    color: #fff;
+}
+
+.booking-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+}
+
+.booking-img {
+    height: 180px;
+    object-fit: cover;
+}
+
 .status-badge {
-    padding: 0.4em 0.8em;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 50px;
     font-weight: 600;
-    font-size: 0.9em;
-    display: inline-block;
-}
-.status-badge.pending {
-    background-color: #F5C13B; color: #000; /* yellow */
-}
-.status-badge.confirmed {
-    background-color: #28A745; color: #fff; /* green */
-}
-.status-badge.cancelled {
-    background-color: #DC3545; color: #fff; /* red */
+    letter-spacing: 1px;
 }
 
-/* Card text styling */
-.card-body p {
-    border-bottom: 1px dashed rgba(255,255,255,0.1);
-    padding-bottom: 5px;
-    margin-bottom: 5px;
+.status-active {
+    background: linear-gradient(45deg, #0d6efd, #0b5ed7);
+    color: #000;
 }
 
-/* Optional subtle inner glow for fancy look */
-.fancy-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 1rem;
-    box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
-    pointer-events: none;
+.status-completed {
+    background-color: #198754;
+    color: #000;
+}
+
+.status-cancelled {
+    background-color: #DC3545;
+    color: #fff;
+}
+
+.booking-info li {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+.price-divider {
+    border-top: 1px dashed rgba(255,255,255,0.2);
+    margin: 5px 0;
 }
 </style>
-@endsection

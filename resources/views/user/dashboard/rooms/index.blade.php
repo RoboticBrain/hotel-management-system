@@ -30,7 +30,7 @@
                     <!-- Content -->
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title mb-1">
-                            {{ $room->room_type }} Bed Room
+                            {{ ucfirst($room->room_type)}} Bed Room
                         </h5>
 
                         <p class="text-muted small mb-3">

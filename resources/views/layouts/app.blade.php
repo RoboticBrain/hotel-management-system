@@ -195,7 +195,7 @@
             <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
           Dashboard
         </button>
-        <div class="collapse" id="home-collapse" style="">
+        <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="{{ route('admin.dashboard') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Overview</a></li>
             <li><a href="{{ route('admin.show.rooms') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Rooms</a></li>
@@ -214,28 +214,119 @@
          </ul>
 
     @else 
-        <ul class="nav nav-pills flex-column mb-auto">
-    <li>
-        <x-nav-link class="bi bi-house" :href="route('user.dashboard.home')" :active="request()->is('user/dashboard/home')">
-            Home
-        </x-nav-link>
+   <ul class="nav nav-pills flex-column mb-auto">
+
+    {{-- Home --}}
+    <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" 
+           data-bs-toggle="collapse" 
+           href="#homeMenu" 
+           role="button" 
+           aria-expanded="{{ request()->is('user/dashboard/home') ? 'true' : 'false' }}" 
+           aria-controls="homeMenu">
+            <i class="bi bi-house me-2"></i> Home
+        </a>
+        <div class="collapse {{ request()->is('user/dashboard/home') ? 'show' : '' }}" id="homeMenu">
+            <ul class="list-unstyled fw-normal small ps-4">
+                <li>
+                    <x-nav-link :href="route('user.dashboard.home')" :active="request()->is('user/dashboard/home')">
+                        Go to Home
+                    </x-nav-link>
+                </li>
+            </ul>
+        </div>
     </li>
-    <li>
-        <x-nav-link class="bi bi-speedometer2" :href="route('user.dashboard')" :active="request()->is('user/dashboard')">
-            Dashboard
-        </x-nav-link>
+
+    {{-- Dashboard --}}
+    <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" 
+           data-bs-toggle="collapse" 
+           href="#dashboardMenu" 
+           role="button" 
+           aria-expanded="{{ request()->is('user/dashboard') ? 'true' : 'false' }}" 
+           aria-controls="dashboardMenu">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+        </a>
+        <div class="collapse {{ request()->is('user/dashboard') ? 'show' : '' }}" id="dashboardMenu">
+            <ul class="list-unstyled fw-normal small ps-4 d-flex flex-column gap-2">
+                <li>
+                    <x-nav-link :href="route('user.dashboard')" :active="request()->is('user/dashboard')">
+                        View Dashboard
+                    </x-nav-link>
+                </li>
+                <li>
+                    <x-nav-link :href="route('user.dashboard.active.bookings')" :active="request()->is('user/dashboard/active/bookings')">
+                        Active Bookings
+                    </x-nav-link>
+                </li>
+                <li>
+                    <x-nav-link :href="route('user.dashboard.completed.bookings')" :active="request()->is('user/dashboard/completed/bookings')">
+                        Completed Bookings
+                    </x-nav-link>
+                </li>
+                <li>
+                    <x-nav-link :href="route('user.dashboard.cancelled.bookings')" :active="request()->is('user/dashboard/cancelled/bookings')">
+                        Cancelled Bookings
+                    </x-nav-link>
+                </li>
+                <li>
+                    <x-nav-link :href="route('user.dashboard.payment.summary')" :active="request()->is('user/dashboard/payment/summary')">
+                        Total Amount Spent
+                    </x-nav-link>
+                </li>
+            </ul>
+        </div>
     </li>
-    <li>
-        <x-nav-link class="bi bi-table" :href="route('user.show.bookings')" :active="request()->is('user/dashboard/bookings')">
-            My Bookings
-        </x-nav-link>
+
+    <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" 
+           data-bs-toggle="collapse" 
+           href="#roomsMenu" 
+           role="button" 
+           aria-expanded="{{ request()->is('user/dashboard/rooms') ? 'true' : 'false' }}" 
+           aria-controls="roomsMenu">
+            <i class="bi bi-door-closed me-2"></i> Available Rooms
+        </a>
+        <div class="collapse {{ request()->is('user/dashboard/rooms') ? 'show' : '' }}" id="roomsMenu">
+            <ul class="list-unstyled fw-normal small ps-4">
+                <li class=" d-flex flex-column gap-2">
+                    <x-nav-link :href="route('user.show.rooms')" :active="request()->is('user/dashboard/rooms')">
+                        All Rooms
+                    </x-nav-link>
+                    <x-nav-link :href="route('user.show.rooms.available')" :active="request()->is('user/dashboard/rooms/available')">
+                        Available Rooms
+                    </x-nav-link>
+                    <x-nav-link :href="route('user.show.rooms.booked')" :active="request()->is('user/dashboard/rooms/booked')">
+                        Booked Rooms
+                    </x-nav-link>
+                </li>
+            </ul>
+        </div>
     </li>
-    <li>
-        <x-nav-link class="bi bi-door-closed" :href="route('user.show.rooms')" :active="request()->is('user/dashboard/rooms')">
-            Available Rooms
-        </x-nav-link>
+      <li class="nav-item">
+        <a class="nav-link text-white d-flex align-items-center" 
+           data-bs-toggle="collapse" 
+           href="#bookingsMenu" 
+           role="button" 
+           aria-expanded="{{ request()->is('user/dashboard/bookings') ? 'true' : 'false' }}" 
+           aria-controls="bookingsMenu">
+            <i class="bi bi-table me-2"></i> My Bookings
+        </a>
+        <div class="collapse {{ request()->is('user/dashboard/bookings') ? 'show' : '' }}" id="bookingsMenu">
+            <ul class="list-unstyled fw-normal small ps-4">
+                <li>
+                    <x-nav-link :href="route('user.show.bookings')" :active="request()->is('user/dashboard/bookings')">
+                        All Bookings
+                    </x-nav-link>
+                </li>
+            </ul>
+        </div>
     </li>
-    </ul>
+
+
+</ul>
+
+
     @endif
 
 
