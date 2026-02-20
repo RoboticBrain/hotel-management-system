@@ -2,7 +2,9 @@
 
 @section('title', 'Bookings')
 @section('selection', 'Bookings')
-
+@section('filter-form')
+    <x-filter-form :route="route('admin.filter.bookings')" :statuses="['checked in','checked out','cancelled','confirmed']" :roomTypes="['Single','Double','Deluxe']" :dateFilter="true" placeholder="Search Bookings..." ></x-filter-form>    
+@endsection
 @section('content')
 
 <style>
@@ -48,15 +50,21 @@
                     <table class="table fixed-table align-middle mb-0">
                         <thead class="table-dark">
                             <tr>
-                                <th style="width:8%">User ID</th>
-                                <th style="width:10%">Customer</th>
-                                <th style="width:8%">R-Type</th>
-                                <th style="width:8%">R-Number</th>
-                                <th style="width:12%">Check In</th>
-                                <th style="width:12%">Check Out</th>
-                                <th style="width:12%">Status</th>
-                                <th style="width:12%">Payment</th>
-                                <th style="width:18%">Actions</th>
+                                @if($bookings->count() < 1)
+                                    <th colspan="10" class="text-start text-danger">
+                                        No bookings found.
+                                    </th>
+                                @else
+                                    <th style="width:8%">User ID</th>
+                                    <th style="width:10%">Customer</th>
+                                    <th style="width:8%">R-Type</th>
+                                    <th style="width:8%">R-Number</th>
+                                    <th style="width:12%">Check In</th>
+                                    <th style="width:12%">Check Out</th>
+                                    <th style="width:12%">Status</th>
+                                    <th style="width:12%">Payment</th>
+                                    <th style="width:18%">Actions</th>
+                                @endif
                             </tr>
                         </thead>
 
@@ -80,14 +88,13 @@
                                     : 'danger';
                             @endphp
 
-                            <tr>
-                                <td>{{ $booking->customer->id + 50 }}</td>
-                                <td>{{ $booking->customer->first_name }}</td>
-                                <td>{{ $booking->room->room_type }}</td>
-                                <td>{{ $booking->room->room_number }}</td>
-                                <td>{{ $booking->checked_in->format('d M Y') }}</td>
-                                <td>{{ $booking->checked_out->format('d M Y') }}</td>
-
+                            <tr>                                    <td>{{ $booking->customer->id + 50 }}</td>
+                                    <td>{{ $booking->customer->first_name }}</td>
+                                    <td>{{ $booking->room->room_type }}</td>
+                                    <td>{{ $booking->room->room_number }}</td>
+                                    <td>{{ $booking->checked_in->format('d M Y') }}</td>
+                                    <td>{{ $booking->checked_out->format('d M Y') }}</td>
+                             
                                 <!-- STATUS -->
                                 <td>
                                     <span class="badge bg-{{ $statusClass }}">

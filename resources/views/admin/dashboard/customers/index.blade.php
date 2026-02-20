@@ -2,7 +2,9 @@
 
 @section('title', 'Admin dashboard')
 @section('selection', 'Customers')
-
+@section('filter-form')
+    <x-filter-form :route="route('admin.filter.customers')" placeholder="Search by name, email or contact..." ></x-filter-form>
+@endsection
 @section('content')
 
 <style>
@@ -52,6 +54,11 @@
                     <table class="table fixed-table align-middle mb-0">
                         <thead class="table-dark">
                             <tr>
+                                @if($customers->count() < 1)
+                                    <th colspan="10" class="text-start text-danger">
+                                        No customers found.
+                                    </th>
+                                @else
                                 <th style="width:5%">#</th>
                                 <th style="width:11%">User Name</th>
                                 <th style="width:5%">Role</th>
@@ -59,6 +66,7 @@
                                 <th style="width:13%">Address</th>
                                 <th style="width:10%">Contact</th>
                                 <th style="width:10%">Actions</th>
+                                @endif
                             </tr>
                         </thead>
 

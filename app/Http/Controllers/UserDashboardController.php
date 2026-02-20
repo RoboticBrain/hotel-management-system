@@ -9,7 +9,7 @@ class UserDashboardController extends Controller
 {
 
     public function home() {
-        return 'Hi there';
+        return view('user.dashboard.home');
     }
     public function getCustomerID() {
         return Auth::id();

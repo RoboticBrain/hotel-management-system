@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('title', 'Rooms')
-@section('selection','Rooms')
+@section('selection', 'Rooms')
+
+@section('filter-form')
+    <x-filter-form :route="route('admin.filter.rooms')" placeholder="Room Number..." :roomTypes="['Single', 'Double', 'Deluxe']" :priceFilter="true" :statuses="['Available', 'Booked']"></x-filter-form>
+@endsection
 
 @section('content')
 <div class="container-fluid">
-
-    <!-- Header -->
+    
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="text-white">Manage Rooms</h3>
         <a href="{{ route('admin.create.room') }}">
@@ -14,12 +17,14 @@
         </a>
     </div>
 
-    <!-- Rooms Table -->
     <div class="card shadow-sm">
         <div class="card-body">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-dark">
                     <tr>
+                        @if($rooms->count() < 1)
+                            <th colspan="10" class="text-start text-danger">No rooms found</th>
+                        @else
                         <th>#</th>
                         <th>Image</th>
                         <th>Room No</th>
@@ -27,6 +32,7 @@
                         <th>Price</th>
                         <th>Status</th>
                         <th style="text-align: center;">Actions</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +46,7 @@
                                  alt="Room Image">
                         </td>
                         <td>{{ $room->room_number }}</td>
-                        <td>{{ $room->room_type }}</td>
+                        <td>{{ ucfirst($room->room_type) }}</td>
                         <td>{{ $room->price }}</td>
                         <td>
                             <span class="badge bg-{{ $room->status == 'Available' ? 'success':'danger' }}">{{ $room->status }}</span>

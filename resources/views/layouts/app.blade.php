@@ -11,6 +11,7 @@
 
     <!-- Vite CSS/JS -->
     @vite(['resources/css/app.css', 'resources/js/color-modes.js'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -355,14 +356,33 @@
     </aside>
 
     <!-- Main content -->
-    <main class="col-sm-10 bg-body-tertiary" id="main">
-        <div class="container-fluid">
-            <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">@yield('selection', 'Home')</h1>
-            </div>
-            @yield('content')
-        </div>
-    </main>
+<main class="col-sm-10 bg-body-tertiary" id="main">
+    <div class="container-fluid">
+
+        <!-- Header Row -->
+     <div class="d-flex flex-column gap-2 pt-3 pb-2 mb-3 border-bottom">
+
+    <!-- Page Title -->
+    <h1 class="h2 mb-0 me-4 d-flex align-items-center">
+        @yield('selection', 'Dashboard')
+    </h1>
+
+    <!-- Form -->
+     @yield('filter-form')
+ 
+
+</div>
+
+
+        <!-- Page Content -->
+        @yield('content')
+
+    </div>
+</main>
+
+
+
+
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\User;
-
+use App\Models\Booking;
 class AdminController extends Controller
 {
     public function home() {
@@ -16,7 +16,19 @@ class AdminController extends Controller
         $total_users = User::count();
         $total_bookings = Room::where('status','Booked')->count();
         $available_rooms = Room::where('status','Available')->count();
+        $bookings = Booking::all(); // get all bookings
+    $status_counts = [
+        'confirmed' => 0,
+        'pending' => 0,
+        'cancelled' => 0,
+    ];
 
+    foreach ($bookings as $booking) {
+        $status = $booking->status; // virtual attribute
+        if (isset($status_counts[$status])) {
+            $status_counts[$status]++;
+        }
+    }
         return view('admin.dashboard.dashboard',compact(['total_rooms','total_users','total_bookings','available_rooms']));
     }
     public function available_rooms() {

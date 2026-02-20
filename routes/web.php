@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CustomerController;
@@ -9,6 +8,10 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserRoomController;
+use App\Http\Controllers\SearchFilters\RoomFilterController;
+use App\Http\Controllers\SearchFilters\CustomerFilterController;
+use App\Http\Controllers\SearchFilters\BookingsFilterController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,6 +56,12 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::get('bookings/edit/{booking}',[BookingsController::class,'edit'])->name('admin.booking.edit');
     Route::patch('/booking/{booking}',[BookingsController::class,'update'])->name('admin.booking.update');
     Route::delete('/booking/{booking}',[BookingsController::class,'destroy'])->name('admin.booking.destroy');
+    // Room filter controller
+    Route::post('/rooms/filter',[RoomFilterController::class,'index'])->name('admin.filter.rooms');
+    // Customer Filter controller
+    Route::post('/customers/filter',[CustomerFilterController::class,'index'])->name('admin.filter.customers');
+    // Bookings filter controller
+    Route::post('/bookings/filter',[BookingsFilterController::class,'index'])->name('admin.filter.bookings');
     });
 
 
@@ -74,6 +83,7 @@ Route::prefix('user/dashboard')->middleware('auth')->group(function() {
     route::post('/rooms/create/{room}',[UserRoomController::class,'store'])->name('user.book.room');
     route::get('/rooms/available',[UserRoomController::class,'available_rooms'])->name('user.show.rooms.available');
     route::get('/rooms/booked',[UserRoomController::class,'booked_rooms'])->name('user.show.rooms.booked');
+    
     // My bookings controller
     route::get('/bookings',[MyBookingController::class,'index'])->name('user.show.bookings');
     

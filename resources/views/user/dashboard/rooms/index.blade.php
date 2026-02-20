@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title','Available Rooms')
 @section('selection','Book Your Room')
+
 @section('content')
   <div class="container-fluid py-4">
     <h3 class="text-white mb-4">Available Rooms</h3>
