@@ -45,7 +45,7 @@
                             <?php
                                 $checkIn  = $booking->checked_in->startOfDay();
                                 $checkOut = $booking->checked_out->startOfDay();
-                                $totalDays = $checkIn->diffInDays($checkOut) + 1;
+                                $totalDays = $checkIn->diffInDays($checkOut);
                             
                             ?>
                             <div class="d-flex justify-content-between align-items-end">
@@ -53,7 +53,7 @@
                                 <?php if($booking->customer_status == 'Checked_out'): ?>
                                     <li><strong>Checked in:</strong> <?php echo e($booking->checked_in->format('d M Y')); ?></li>
                                     <li><strong>Checked out:</strong> <?php echo e($booking->checked_out->format('d M Y')); ?></li>
-                                    <li><strong>Total stays:</strong> <?php echo e($totalDays ?? 2); ?></li>
+                                    <li><strong>Total stays:</strong> <?php echo e($totalDays); ?></li>
                             
                                 <?php elseif($booking->customer_status == 'Checked_in'): ?>
                                     <li><strong>Room No:</strong> <?php echo e($booking->room->room_number); ?></li>

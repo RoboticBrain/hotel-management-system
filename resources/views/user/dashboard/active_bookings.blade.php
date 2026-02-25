@@ -7,7 +7,11 @@
 
 <div class="container py-5">
     @if($active_bookings->count() < 1)
-        <h3 class="text-white mb-4 badge bg-danger fs-4 rounded">No Active Bookings so far</h3>
+            <ul class="list-unstyled text-secondary">
+                <li class="mb-2 text-danger"><i class="bi bi-x-circle-fill me-2 text-danger"></i>No active bookings found for your account.</li>
+                <li class="mb-2"><i class="bi bi-info-circle-fill me-2"></i>Make a new booking to see it listed here.</li>
+                <li><i class="bi bi-calendar-check-fill me-2"></i>Check your past bookings in the "My Bookings" section.</li>
+    
     @else
         <h3 class="mb-4 text-white">Active Bookings</h3>
 

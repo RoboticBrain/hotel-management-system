@@ -24,7 +24,7 @@
                         @php
                             $checkIn  = $booking->checked_in->startOfDay();
                             $checkOut = $booking->checked_out->startOfDay();
-                            $totalDays = $checkIn->diffInDays($checkOut) + 1;
+                            $totalDays = $checkIn->diffInDays($checkOut);
                         @endphp
                         <tr class="align-middle">
                             <td>{{ $booking->checked_in->format('d M')}} <i class="bi bi-arrow-right"></i>  {{  $booking->checked_out->format('d M') }}</td>
@@ -40,7 +40,7 @@
                 <tfoot>
                     <tr class="fw-bold text-white bg-secondary">
                         <td colspan="5" class="text-end text-info">Total Spent:</td>
-                        <td class="text-info">{{ $totalPay }}</td>
+                        <td class="text-info">${{ $totalPay }}</td>
                     </tr>
                 </tfoot>
             </table>

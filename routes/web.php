@@ -37,6 +37,8 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::get('/',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/rooms/available',[AdminController::class,'available_rooms'])->name('dashboard.rooms.available');
     Route::get('/rooms/booked',[AdminController::class,'booked_rooms'])->name('dashboard.rooms.booked');
+    Route::get('/bookings/today',[AdminController::class,'today_bookings'])->name('dashboard.bookings.today');
+    Route::get('/total/revenue',[AdminController::class,'total_revenue'])->name('dashboard.total.revenue');
     // Rooms controllers
     Route::get( '/rooms',[RoomController::class,'index'])->name('admin.show.rooms');
     Route::get( '/room/create',[RoomController::class,'create'])->name('admin.create.room');

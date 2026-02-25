@@ -14,7 +14,7 @@
                 <div class="card bg-warning text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">My Bookings</h5>
-                        <h2 class="card-text"></h2> 
+                        <h2 class="card-text">{{ $my_bookings }}</h2> 
                     </div>
                 </div>
             </a>
@@ -25,7 +25,7 @@
                 <div class="card bg-primary text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Active Bookings</h5>
-                        <h2 class="card-text"></h2> 
+                        <h2 class="card-text">{{ $active_bookings }}</h2> 
                     </div>
                 </div>
             </a>
@@ -36,7 +36,7 @@
                 <div class="card bg-success text-dark shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Completed bookings</h5>
-                        <h2 class="card-text"></h2> 
+                        <h2 class="card-text">{{ $completed_bookings }}</h2> 
                     </div>
                 </div>
             </a>
@@ -47,7 +47,7 @@
                 <div class="card bg-danger text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Cancelled Bookings</h5>
-                        <h2 class="card-text"></h2> 
+                        <h2 class="card-text">{{ $cancelled_bookings }}</h2> 
                     </div>
                 </div>
             </a>
@@ -57,7 +57,7 @@
                 <div class="card bg-info text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Total Amount Spent</h5>
-                        <h2 class="card-text"></h2> 
+                        <h2 class="card-text">${{ $totalAmountSpent }}</h2> 
                     </div>
                 </div>
             </a>

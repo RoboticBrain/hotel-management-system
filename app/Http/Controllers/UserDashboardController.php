@@ -35,7 +35,7 @@ class UserDashboardController extends Controller
         $days = $booking->checked_in
             ->copy()
             ->startOfDay()
-            ->diffInDays($booking->checked_out->copy()->startOfDay()) + 1;
+            ->diffInDays($booking->checked_out->copy()->startOfDay());
         return (int) str_replace('$','',$booking->room->price) * (int)$days;
         });
         return $totalPay;
@@ -43,7 +43,6 @@ class UserDashboardController extends Controller
 
   
     public function index() {
-     
         $my_bookings = Booking::where('customer_id', $this->getCustomerID())->count();
         $completed_bookings = $this->getCompleteBookings()->count();
         $active_bookings = $this->getActiveBookings()->count();

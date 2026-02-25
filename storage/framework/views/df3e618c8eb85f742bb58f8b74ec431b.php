@@ -34,7 +34,7 @@
                             <?php
                                 $checkIn  = $booking->checked_in->startOfDay();
                                 $checkOut = $booking->checked_out->startOfDay();
-                                $totalDays = $checkIn->diffInDays($checkOut) + 1;
+                                $totalDays = $checkIn->diffInDays($checkOut);
                             ?>
 
                             <ul class="list-unstyled mt-3 booking-info">

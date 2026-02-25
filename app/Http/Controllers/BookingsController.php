@@ -55,7 +55,7 @@ class BookingsController extends Controller
             'checked_in' => $validated['check_in'],
             'checked_out' => $validated['check_out'],
             'room_status' => 'Booked',
-            'payment_status' => 'completed',
+            'payment_status' => 'paid',
         ]);
 
        $updated =  Room::find($room_id)->update(['status'=> 'Booked']);
