@@ -11,7 +11,7 @@ use App\Http\Controllers\UserRoomController;
 use App\Http\Controllers\SearchFilters\RoomFilterController;
 use App\Http\Controllers\SearchFilters\CustomerFilterController;
 use App\Http\Controllers\SearchFilters\BookingsFilterController;
-
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -89,5 +89,14 @@ Route::prefix('user/dashboard')->middleware('auth')->group(function() {
     // My bookings controller
     route::get('/bookings',[MyBookingController::class,'index'])->name('user.show.bookings');
     
+});
 
+// Route::get('payment/stripe/{booking}',[StripeController::class,'index'])->name('user.payment.stripe');
+Route::post('stripe/checkout/{room}',[StripeController::class, 'checkout'])->name('stripe.checkout');
+Route::get('payment/success/{booking}', [StripeController::class,'success'])->name('payment.success');
+Route::get('payment/cancel/{booking}', [StripeController::class,'cancel'])->name('payment.cancel');
+
+Route::get('user/email', function() {
+    $booking = App\Models\Booking::find(1);
+    return new App\Mail\BookingConfirmed($booking);
 });

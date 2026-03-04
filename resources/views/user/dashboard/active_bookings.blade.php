@@ -6,65 +6,90 @@
 @section('content')
 
 <div class="container py-5">
+
     @if($active_bookings->count() < 1)
-            <ul class="list-unstyled text-secondary">
-                <li class="mb-2 text-danger"><i class="bi bi-x-circle-fill me-2 text-danger"></i>No active bookings found for your account.</li>
-                <li class="mb-2"><i class="bi bi-info-circle-fill me-2"></i>Make a new booking to see it listed here.</li>
-                <li><i class="bi bi-calendar-check-fill me-2"></i>Check your past bookings in the "My Bookings" section.</li>
-    
+
+        <ul class="list-unstyled text-secondary">
+            <li class="mb-2 text-danger">
+                <i class="bi bi-x-circle-fill me-2 text-danger"></i>
+                No active bookings found for your account.
+            </li>
+            <li class="mb-2">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                Make a new booking to see it listed here.
+            </li>
+            <li>
+                <i class="bi bi-calendar-check-fill me-2"></i>
+                Check your past bookings in the "My Bookings" section.
+            </li>
+        </ul>
+
     @else
+
         <h3 class="mb-4 text-white">Active Bookings</h3>
 
         <div class="row g-4">
             @foreach ($active_bookings as $booking)
+
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-lg rounded-4 booking-card"
-                         style="transition: transform 0.3s, box-shadow 0.3s;">
+                    <div class="card h-100 shadow-lg rounded-4 booking-card">
 
                         <!-- Room Image -->
                         <img src="{{ asset('storage/' . $booking->room->image) }}" 
                              class="w-100 booking-img" 
                              alt="Room Image">
-                        <div class="card-body p-4">
+
+                        <div class="card-body p-4 d-flex flex-column">
+
+                            <!-- Title + Status -->
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h5 class="mb-0 fw-bold">{{ ucfirst($booking->room->room_type) }} Bed Room</h5>
+                                <h5 class="mb-0 fw-bold">
+                                    {{ ucfirst($booking->room->room_type) }} Bed Room
+                                </h5>
                                 <span class="status-badge status-active">ACTIVE</span>
                             </div>
+
                             @php
                                 $checkIn  = $booking->checked_in->startOfDay();
                                 $checkOut = $booking->checked_out->startOfDay();
-                                $totalDays = $checkIn->diffInDays($checkOut) + 1;
+                                $totalDays = $checkIn->diffInDays($checkOut);
                             @endphp
-                            <div class="d-flex justify-content-between align-items-end">
+
+                            <!-- Booking Info -->
+                            <div class="d-flex flex-row justify-content-between">
                                 <ul class="list-unstyled mt-3 booking-info">
                                     <li><strong>Check-in:</strong> {{ $booking->checked_in->format('d M Y') }}</li>
                                     <li><strong>Check-out:</strong> {{ $booking->checked_out->format('d M Y') }}</li>
                                     <li><strong>Total Days:</strong> {{ $totalDays }}</li>
-                                    <li><strong>Remaining:</strong> {{ Carbon\Carbon::today()->diffInDays($checkOut) }}</li>
+                                    <li><strong>Remaining:</strong> {{ \Carbon\Carbon::today()->diffInDays($checkOut) }}</li>
                                 </ul>
-                            <div class="price-box ms-3">
-                                      <div class="mt-3">
-                                <div class="text-end">
-                                    <div class="small text-secondary">Per Night</div>
-                                    <div class="fw-semibold fs-6 text-light">{{ $booking->room->price }}</div>
+
+                            <!-- Price Section -->
+                            <div class="mt-auto text-end">
+                                <div class="small text-secondary">Per Night</div>
+                                <div class="fw-semibold fs-6 text-light">
+                                    {{ $booking->room->price }}
                                 </div>
-                                <div class="text-end">
-                                    <div class="small text-secondary">Total</div>
-                                    <div class="fw-bold fs-5 text-success">
-                                        ${{ (int)$totalDays * (int)str_replace('$','',$booking->room->price) }}
-                                    </div>
+
+                                <div class="small text-secondary mt-2">Total</div>
+                                <div class="fw-bold fs-5 text-success">
+                                    ${{ (int)$totalDays * (int)str_replace('$','',$booking->room->price) }}
                                 </div>
                             </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             @endforeach
         </div>
+
     @endif
+
 </div>
 
 @endsection
+
 
 <style>
 body {
@@ -109,10 +134,5 @@ body {
     margin-bottom: 6px;
     font-size: 14px;
     color: #cbd5e1;
-}
-
-.price-divider {
-    border-top: 1px dashed rgba(255,255,255,0.2);
-    margin: 5px 0;
 }
 </style>

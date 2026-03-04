@@ -41,7 +41,7 @@
                                 <x-error name="check_out"></x-error>
                             </div>
 
-                            <button class="btn btn-success w-100 mt-4" type="submit">
+                            <button type="submit" class="btn btn-success w-100 mt-4">
                                 Book
                             </button>
                         </form>
@@ -53,9 +53,9 @@
             <div class="col-lg-8 d-flex justify-content-center">
                 <div class="image-box w-100">
                     <img src="{{ asset('storage/' . $room->image) }}" 
-                         class="img-fluid rounded shadow" 
-                         style="height: 500px; object-fit: cover; width: 95%; " 
-                         alt="Room">
+                        class="img-fluid rounded shadow" 
+                        style="height: 500px; object-fit: cover; width: 95%; " 
+                        alt="Room">
                 </div>
             </div>
 

@@ -211,8 +211,27 @@
 <?php unset($__componentOriginaled2cde6083938c436304f332ba96bb7c); ?>
 <?php endif; ?>
                             </div>
-                         
-
+                            <div class="mt-3">
+                            <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => ['for' => 'image']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'image']); ?>Room Image <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginald8ba2b4c22a13c55321e34443c386276)): ?>
+<?php $attributes = $__attributesOriginald8ba2b4c22a13c55321e34443c386276; ?>
+<?php unset($__attributesOriginald8ba2b4c22a13c55321e34443c386276); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginald8ba2b4c22a13c55321e34443c386276)): ?>
+<?php $component = $__componentOriginald8ba2b4c22a13c55321e34443c386276; ?>
+<?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
+<?php endif; ?>
+                            <input type="file" name="image" id="image" onchange="previewImg(event)" class="form-control" />                            </div>
 
                             <button class="btn btn-success w-100 mt-4" type="submit">
                                 Add Room
@@ -237,17 +256,15 @@
 </div>
 <?php $__env->stopSection(); ?>
 
+<?php $__env->startPush('scripts'); ?>
 <script>
   function previewImg(event) {
-        console.log('hi');
         const input = event.target;
-        console.log(input);
+
         const preview = document.getElementById('imagePreview');
         if(input.files && input.files[0]){
-            console.log('file found');
             const reader = new FileReader();
             reader.onload = function(e) {
-                console.log('inside reader');
                 preview.src = e.target.result;
                 console.log(e.target);
                 preview.style.display = 'block';
@@ -257,5 +274,6 @@
         }
     }
 </script>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\php internship\Laravel final project\hotel_management_system\resources\views/admin/dashboard/rooms/create.blade.php ENDPATH**/ ?>

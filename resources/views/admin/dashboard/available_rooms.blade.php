@@ -11,8 +11,7 @@
             @foreach ($available_rooms as $room)
                 <div class="col-md-4 col-lg-3">
                     <div class="card room-card border-0 h-100 position-relative">
-
-                        <!-- Status badge -->
+                        
                         <span class="badge bg-success position-absolute top-0 start-0 m-2" style="z-index: 10;">
                             {{$room->status}}
                         </span>
@@ -28,7 +27,6 @@
 
                         </div>
 
-                        <!-- Content -->
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title mb-1">
                                 {{ $room->room_type }} Bed Room

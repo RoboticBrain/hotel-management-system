@@ -21,11 +21,9 @@ class Booking extends Model
 
     public function getCustomerStatusAttribute(){
         $today = now();
-        if(isset($this->cancelled_at)){
+        if(isset($this->cancelled_at) || $this->payment_status === 'unpaid'){
             $this->room->status = 'Available';
             $this->room->save();
-            $this->payment_status = 'returned';
-            $this->save();
             return 'Cancelled';
         }
         if($today->lt($this->checked_in)){
@@ -34,7 +32,6 @@ class Booking extends Model
             return 'Confirmed';
         }
         if($today->between($this->checked_in,$this->checked_out)){
-            // dd($this);
             $this->room->status = 'Booked';
             $this->room->save();
             return 'Checked_in';

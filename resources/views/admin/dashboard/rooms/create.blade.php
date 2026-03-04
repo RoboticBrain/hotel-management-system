@@ -33,8 +33,9 @@
                                 <x-label>Room Status</x-label>
                                 <x-select name="status" :options="['Available','Occupied']"></x-select>
                             </div>
-                         
-
+                            <div class="mt-3">
+                            <x-label for="image">Room Image</x-label>
+                            <input type="file" name="image" id="image" onchange="previewImg(event)" class="form-control" />                            </div>
 
                             <button class="btn btn-success w-100 mt-4" type="submit">
                                 Add Room
@@ -59,17 +60,15 @@
 </div>
 @endsection
 
+@push('scripts')
 <script>
   function previewImg(event) {
-        console.log('hi');
         const input = event.target;
-        console.log(input);
+
         const preview = document.getElementById('imagePreview');
         if(input.files && input.files[0]){
-            console.log('file found');
             const reader = new FileReader();
             reader.onload = function(e) {
-                console.log('inside reader');
                 preview.src = e.target.result;
                 console.log(e.target);
                 preview.style.display = 'block';
@@ -79,3 +78,4 @@
         }
     }
 </script>
+@endpush

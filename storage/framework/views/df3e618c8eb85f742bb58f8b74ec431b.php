@@ -7,7 +7,8 @@
 
 <div class="container py-5">
     <?php if($completed_bookings->count() < 1): ?>
-        <h3 class="text-white mb-4 badge bg-danger fs-4 rounded">No Bookings are completed so far</h3>
+            <ul class="list-unstyled text-secondary">
+                <li class="mb-2 text-danger"><i class="bi bi-x-circle-fill me-2 text-danger"></i>No completed bookings found for your account.</li>
     <?php else: ?>
         <h3 class="mb-4 text-white">Completed Bookings</h3>
 
