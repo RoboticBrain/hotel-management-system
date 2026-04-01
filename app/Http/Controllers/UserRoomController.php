@@ -10,6 +10,25 @@ use Illuminate\Http\Request;
 use Stripe\Stripe;
 class UserRoomController extends Controller
 {
+    /**
+     * Ensure the Stripe API key is available and configured.
+     *
+     * pulled from config('services.stripe.secret') so it works with cached config.
+     *
+     * @return void
+     * @throws \RuntimeException
+     */
+    protected function setStripeKey(): void
+    {
+        $key = config('services.stripe.secret');
+        if (empty($key)) {
+            throw new \RuntimeException('Stripe secret key is not configured. ' .
+                'Please add STRIPE_SECRET to your .env and run config:clear.');
+        }
+
+        Stripe::setApiKey($key);
+    }
+
     public function index() {
         $available_rooms = Room::all();
         return view('user.dashboard.rooms.index', compact('available_rooms'));
@@ -42,22 +61,22 @@ class UserRoomController extends Controller
         if(!$booking){
             return redirect()->back()->with('notification', ['type' => 'danger','message' => 'Some error occured' ]);
         }
-        return $this->stripe_session($room, $booking);
+        return $this->stripe_session($booking);
 
 
     }
-    public function stripe_session(Room $room, Booking $booking) {
+    public function stripe_session(Booking $booking) {
         // dd('in stripe session');
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $this->setStripeKey();
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'usd',
                     'product_data' => [
-                        'name' => ucfirst($room->room_type) . ' Bed Room',
+                        'name' => ucfirst($booking->room->room_type) . ' Bed Room',
                     ],
-                    'unit_amount' => (int)str_replace('$','',$room->price) * 100,
+                    'unit_amount' => (int)str_replace('$','',$booking->room->price) * 100,
                 ],
                 'quantity' => 1,
             ]],

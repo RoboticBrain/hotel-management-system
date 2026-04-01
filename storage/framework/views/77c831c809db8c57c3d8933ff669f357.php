@@ -47,7 +47,7 @@ unset($__defined_vars, $__key, $__value); ?>
 <form method="post" class="d-flex align-items-center gap-2" action="<?php echo e($route); ?>">
     <?php echo csrf_field(); ?>
     <?php echo method_field('POST'); ?>
-    <!-- Search -->
+  
     <input type="text"
            name="search"
            value="<?php echo e(request('search')); ?>"
@@ -55,7 +55,7 @@ unset($__defined_vars, $__key, $__value); ?>
            placeholder="<?php echo e($placeholder); ?>"
            style="width: 300px;">
 
-    <!-- Status Filter -->
+    
     <?php if(count($statuses)): ?>
         <select name="status" class="form-select">
             <option value="">All Status</option>
@@ -69,7 +69,7 @@ unset($__defined_vars, $__key, $__value); ?>
         </select>
     <?php endif; ?>
 
-    <!-- Room Type Filter -->
+ 
     <?php if(count($roomTypes)): ?>
         <select name="room_type" class="form-select">
             <option value="">All Types</option>
@@ -83,7 +83,7 @@ unset($__defined_vars, $__key, $__value); ?>
         </select>
     <?php endif; ?>
 
-    <!-- Date Filter -->
+    
     <?php if($dateFilter): ?>
         <input type="date" name="start_date"
                value="<?php echo e(request('start_date')); ?>"
@@ -94,7 +94,7 @@ unset($__defined_vars, $__key, $__value); ?>
                class="form-control">
     <?php endif; ?>
 
-    <!-- Price Filter -->
+    
     <?php if($priceFilter): ?>
         <input type="number" name="min_price"
                value="<?php echo e(request('min_price')); ?>"

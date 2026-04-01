@@ -43,16 +43,12 @@ class RoomController extends Controller
         }
     }
     public function destroy(Room $room){
-        if($room->status == 'Booked'){
-            return redirect()->back()->with('notification',['type'=>'danger','message'=>'The room is booked. unable to delete.']);
-        }
-
         $deleted = $room->delete();
         if($deleted){
             return redirect()->route('admin.show.rooms')->with('notification',['type'=>'success','message'=>'Room deleted successfully']);
         }
         else {
-            return redirect()->back()->with('notification',['type'=>'danger','message'=>"Room failed to delete"]);
+            return redirect()->back()->with('notification',['type'=>'danger','message'=>'Room failed to delete']);
         }
     }
 }

@@ -32,7 +32,7 @@
                         <!-- Content -->
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title mb-1">
-                                <?php echo e($room->room_type); ?> Bed Room
+                                <?php echo e(ucfirst($room->room_type)); ?> Bed Room
                             </h5>
 
                             <p class="text-muted small mb-3">

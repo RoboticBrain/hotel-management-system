@@ -17,7 +17,12 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'customer_id' => \App\Models\Customer::factory()->create()->id,
+            'room_id' => \App\Models\Room::factory()->create()->id,
+            'checked_in' => $this->faker->date(),
+            'checked_out' => $this->faker->date(),
+            'room_status' => $this->faker->randomElement(['Booked', 'Available']),
+            'payment_status' => $this->faker->randomElement(['pending', 'paid', 'unpaid']),
         ];
     }
 }

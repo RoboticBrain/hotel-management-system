@@ -11,6 +11,7 @@ use App\Http\Controllers\UserRoomController;
 use App\Http\Controllers\SearchFilters\RoomFilterController;
 use App\Http\Controllers\SearchFilters\CustomerFilterController;
 use App\Http\Controllers\SearchFilters\BookingsFilterController;
+use App\Http\Controllers\SearchFilters\PaymentFilterController;
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,7 @@ Route::middleware('web')->group(function () {
     Route::post('/login', [SessionController::class, 'store'])->name('login.store');
 });
 
-// Authentcated route for logout
+// Authenticated route for logout
 Route::middleware('auth')->group(function() {
     Route::post('/logout', [SessionController::class,'destroy'])->name('logout');
     Route::get('/profile/{customer}', [ProfileController::class, 'show'])->name('profile.show');
@@ -58,17 +59,17 @@ Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( functio
     Route::get('bookings/edit/{booking}',[BookingsController::class,'edit'])->name('admin.booking.edit');
     Route::patch('/booking/{booking}',[BookingsController::class,'update'])->name('admin.booking.update');
     Route::delete('/booking/{booking}',[BookingsController::class,'destroy'])->name('admin.booking.destroy');
+    // Payment controller 
+    Route::get('/payments',[StripeController::class,'index'])->name('admin.show.payments');
     // Room filter controller
     Route::post('/rooms/filter',[RoomFilterController::class,'index'])->name('admin.filter.rooms');
     // Customer Filter controller
     Route::post('/customers/filter',[CustomerFilterController::class,'index'])->name('admin.filter.customers');
     // Bookings filter controller
     Route::post('/bookings/filter',[BookingsFilterController::class,'index'])->name('admin.filter.bookings');
+    Route::post('/payments/filter',[PaymentFilterController::class,'index'])->name('admin.filter.payments');
     });
-
-
-
-
+    
 // Authenticated routes for User
 Route::prefix('user/dashboard')->middleware('auth')->group(function() {
     route::get('/home',[UserDashboardController::class,'home'])->name('user.dashboard.home');
@@ -92,7 +93,7 @@ Route::prefix('user/dashboard')->middleware('auth')->group(function() {
 });
 
 // Route::get('payment/stripe/{booking}',[StripeController::class,'index'])->name('user.payment.stripe');
-Route::post('stripe/checkout/{room}',[StripeController::class, 'checkout'])->name('stripe.checkout');
+Route::get('stripe/checkout/{booking}',[StripeController::class, 'checkout'])->name('stripe.checkout');
 Route::get('payment/success/{booking}', [StripeController::class,'success'])->name('payment.success');
 Route::get('payment/cancel/{booking}', [StripeController::class,'cancel'])->name('payment.cancel');
 

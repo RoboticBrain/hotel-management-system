@@ -33,14 +33,14 @@
 <?php endif; ?>
                             <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['name' => 'room_type','options' => ['single','double','helux'],'selected' => '$room->room_type ?? null']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['name' => 'room_type','options' => ['Single','Double','Delux'],'selected' => '$room->room_type ?? null']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('select'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['name' => 'room_type','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['single','double','helux']),'selected' => '$room->room_type ?? null']); ?>Room type <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['name' => 'room_type','options' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Single','Double','Delux']),'selected' => '$room->room_type ?? null']); ?>Room type <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginaled2cde6083938c436304f332ba96bb7c)): ?>
 <?php $attributes = $__attributesOriginaled2cde6083938c436304f332ba96bb7c; ?>
@@ -133,14 +133,14 @@
 <?php endif; ?>
                                 <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'price','value' => '$']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','name' => 'price','value' => '$','required' => '']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','name' => 'price','value' => '$']); ?> <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes(['type' => 'text','name' => 'price','value' => '$','required' => '']); ?> <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
 <?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>

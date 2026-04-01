@@ -12,8 +12,7 @@ class CustomerController extends Controller
 
     }
     public function show(Customer $customer) {
-        $user = $customer;
-        return view("user.profile", compact('user'));
+        return view("user.profile", ['user' => $customer]);
     }
     public function edit(Customer $customer) {
         // dd($customer);

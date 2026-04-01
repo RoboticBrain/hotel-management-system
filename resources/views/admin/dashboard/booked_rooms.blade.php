@@ -35,8 +35,11 @@
                                 {{ $room->room_type }} Bed Room
                             </h5>
 
-                            <p class="text-muted small mb-3">
+                            <p class="text-muted small mb-1">
                                 Room No: {{ $room->room_number }}
+                            </p>
+                            <p class="text-muted small">
+                                From {{ $room->bookings()->latest()->first()->checked_in->format('d M ') }} to {{ $room->bookings()->latest()->first()->checked_out->format('d M ') }}
                             </p>
                         </div>
                     </div>

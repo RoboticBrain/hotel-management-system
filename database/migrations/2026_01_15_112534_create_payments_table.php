@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->constrained()->onDelete('cascade');
+            $table->foreignId('booking_id')->constrained()->cascadeOnDelete()->unique();
             $table->string('stripe_session_id')->nullable();
             $table->string('payment_intent_id')->nullable();
             $table->decimal('amount', 10, 2);
@@ -22,10 +22,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('payments');

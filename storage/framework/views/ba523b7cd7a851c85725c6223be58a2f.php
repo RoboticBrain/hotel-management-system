@@ -20,13 +20,19 @@
         <hr>
 
         <h3 style="color:#34495e;">Booking Details</h3>
-
+        <?php
+     
+            $totalDays = $booking->checked_in->diffInDays($booking->checked_out);
+            $pricePerNight = (int) str_replace('$', '', $booking->room->price);
+            $totalAmount = $totalDays * $pricePerNight;
+        ?>
         <p><strong>Booking ID:</strong> #<?php echo e($booking->id); ?></p>
         <p><strong>Room:</strong> <?php echo e(ucfirst($booking->room->room_type)); ?> Bed</p>
-        <p><strong>Check-in Date:</strong> <?php echo e($booking->checked_in->format('d M Y')); ?></p>
-        <p><strong>Check-out Date:</strong> <?php echo e($booking->checked_out->format('d M Y')); ?></p>
-        <p><strong>Total Amount Paid:</strong> $200</p>
-        <p><strong>Payment Status:</strong> <?php echo e(ucfirst($booking->payment_status)); ?></p>
+        <p><strong>Check in Date:</strong> <?php echo e($booking->checked_in->format('d M Y')); ?></p>
+        <p><strong>Check out Date:</strong> <?php echo e($booking->checked_out->format('d M Y')); ?></p>
+        <p><strong>Total Days:</strong> <?php echo e($totalDays); ?></p>
+        <p><strong>Price per Night:</strong> <?php echo e($booking->room->price); ?></p>
+        <p><strong>Total Amount Paid:</strong> $<?php echo e(number_format($totalAmount, 2)); ?></p>
 
         <hr>
 
@@ -48,7 +54,7 @@
             Warm regards,<br>
             <strong><?php echo e(config('app.name')); ?></strong><br>
             Customer Support Team<br>
-            Email: support@yourhotel.com<br>
+            Email: support@umbrella.com<br>
             Phone: +1 234 567 890
         </p>
 

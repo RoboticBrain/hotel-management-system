@@ -2,27 +2,7 @@
 
 <?php $__env->startSection('title', 'Bookings'); ?>
 <?php $__env->startSection('selection', 'Bookings'); ?>
-<?php $__env->startSection('filter-form'); ?>
-    <?php if (isset($component)) { $__componentOriginal934f921620666b609fa7806109faa21b = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal934f921620666b609fa7806109faa21b = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.filter-form','data' => ['route' => route('admin.filter.bookings'),'statuses' => ['checked in','checked out','cancelled','confirmed'],'roomTypes' => ['Single','Double','Deluxe'],'dateFilter' => true,'placeholder' => 'Search Bookings...']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('filter-form'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['route' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(route('admin.filter.bookings')),'statuses' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['checked in','checked out','cancelled','confirmed']),'roomTypes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(['Single','Double','Deluxe']),'dateFilter' => true,'placeholder' => 'Search Bookings...']); ?> <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal934f921620666b609fa7806109faa21b)): ?>
-<?php $attributes = $__attributesOriginal934f921620666b609fa7806109faa21b; ?>
-<?php unset($__attributesOriginal934f921620666b609fa7806109faa21b); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal934f921620666b609fa7806109faa21b)): ?>
-<?php $component = $__componentOriginal934f921620666b609fa7806109faa21b; ?>
-<?php unset($__componentOriginal934f921620666b609fa7806109faa21b); ?>
-<?php endif; ?>    
-<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 <style>
@@ -93,20 +73,24 @@
                                 /* ===== STATUS COLOR LOGIC ===== */
                                 $status = strtolower($booking->customer_status);
 
-                                $statusClass = match($status) {
-                                    'checked_in'  => 'success',
-                                    'checked_out' => 'secondary',
-                                    'confirmed'   => 'primary',
-                                    'cancelled'   => 'danger',
-                                    default       => 'secondary',
-                                };
+                                if ($status === 'checked_in') {
+                                    $statusClass = 'success';
+                                } elseif ($status === 'checked_out') {
+                                    $statusClass = 'secondary';
+                                } elseif ($status === 'confirmed') {
+                                    $statusClass = 'primary';
+                                } elseif ($status === 'cancelled') {
+                                    $statusClass = 'danger';
+                                } else {
+                                    $statusClass = 'secondary';
+                                }
 
                                 $paymentClass = strtolower($booking->payment_status) === 'paid'
                                     ? 'success'
                                     : 'danger';
                             ?>
 
-                            <tr>                                    <td><?php echo e($booking->customer->id + 50); ?></td>
+<tr>                                <td><?php echo e($booking->customer->id + 50); ?></td>
                                     <td><?php echo e($booking->customer->first_name); ?></td>
                                     <td><?php echo e($booking->room->room_type); ?></td>
                                     <td><?php echo e($booking->room->room_number); ?></td>

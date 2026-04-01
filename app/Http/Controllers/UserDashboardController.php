@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class UserDashboardController extends Controller
@@ -23,15 +24,19 @@ class UserDashboardController extends Controller
         return $active_bookings;
     }
     public function getCompleteBookings() {
-        $completed_bookings = Booking::where('customer_id',$this->getCustomerID())->whereDate('checked_out','<=',$this->getTodayDate())->whereNull('cancelled_at');
+        $completed_bookings = Booking::whereDate('checked_out','<',$this->getTodayDate())->whereNull('cancelled_at');
         return $completed_bookings;
+    }
+    public function getPaidBookings() {
+        $paid_bookings = Payment::where('status','Paid');
+        return $paid_bookings;
     }
     public function getCancelledBookings() {
         $cancelled_bookings = Booking::where('customer_id', $this->getCustomerID())->whereNotNull('cancelled_at');
         return $cancelled_bookings;
     }
     public function getTotalPayment() {
-    $totalPay = $this->getCompleteBookings()->get()->sum(function ($booking) {
+        $totalPay = $this->getPaidBookings()->get()->sum(function ($booking) {
         $days = $booking->checked_in
             ->copy()
             ->startOfDay()
@@ -41,7 +46,7 @@ class UserDashboardController extends Controller
         return $totalPay;
     }
 
-  
+    
     public function index() {
         $my_bookings = Booking::where('customer_id', $this->getCustomerID())->count();
         $completed_bookings = $this->getCompleteBookings()->count();

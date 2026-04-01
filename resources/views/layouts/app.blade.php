@@ -189,6 +189,11 @@
                 Bookings
             </x-nav-link>
         </li>
+        <li>
+            <x-nav-link class="bi bi-credit-card" :href="route('admin.show.payments')" :active="request()->is('admin/dashboard/payments')">
+                Payments
+            </x-nav-link>
+        </li>
         </ul>
         <hr>
           <ul class="list-unstyled ps-0">

@@ -15,7 +15,7 @@
                         <form method="post" action="{{ route('admin.store.room') }}" enctype="multipart/form-data">
                             @csrf
                             <x-label>Room Type</x-label>
-                            <x-select name="room_type" :options="['single','double','helux']" selected="$room->room_type ?? null">Room type</x-select>
+                            <x-select name="room_type" :options="['Single','Double','Delux']" selected="$room->room_type ?? null">Room type</x-select>
                             <x-error name="room_type"></x-error>
                             
                             <div class="mt-3">
@@ -25,7 +25,7 @@
 
                             <div class="mt-3">
                                 <x-label>Room Price</x-label>
-                                <x-input type="text" name="price" value="$"></x-input>
+                                <x-input type="text" name="price" value="$" required=""></x-input>
                             </div>
                             <x-error name="room-type"></x-error>
 

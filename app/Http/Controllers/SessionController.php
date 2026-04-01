@@ -22,7 +22,7 @@ class SessionController extends Controller
         }
         $currentUser = Auth::user();
         if($currentUser->isAdmin){
-            return redirect()->intended(route('admin.dashboard'))->with('notification',['type'=>'success','message'=>'Admin logged in']);
+            return redirect()->intended(route('admin.show.bookings'))->with('notification',['type'=>'success','message'=>'Admin logged in']);
         } 
         else {
             return redirect()->intended(route('user.dashboard'))->with('notification',['type'=>'success','message'=>'User logged in']);

@@ -17,6 +17,9 @@ class Booking extends Model
     public function room() {
         return $this->belongsTo(Room::class,'room_id','id');
     }
+    public function payment() {
+        return $this->hasOne(Payment::class,'booking_id','id');
+    }
     protected $casts = ['checked_in' => 'date','checked_out' => 'date'];
 
     public function getCustomerStatusAttribute(){

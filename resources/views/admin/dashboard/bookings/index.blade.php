@@ -2,9 +2,9 @@
 
 @section('title', 'Bookings')
 @section('selection', 'Bookings')
-@section('filter-form')
+{{-- @section('filter-form')
     <x-filter-form :route="route('admin.filter.bookings')" :statuses="['checked in','checked out','cancelled','confirmed']" :roomTypes="['Single','Double','Deluxe']" :dateFilter="true" placeholder="Search Bookings..." ></x-filter-form>    
-@endsection
+@endsection --}}
 @section('content')
 
 <style>
@@ -75,20 +75,24 @@
                                 /* ===== STATUS COLOR LOGIC ===== */
                                 $status = strtolower($booking->customer_status);
 
-                                $statusClass = match($status) {
-                                    'checked_in'  => 'success',
-                                    'checked_out' => 'secondary',
-                                    'confirmed'   => 'primary',
-                                    'cancelled'   => 'danger',
-                                    default       => 'secondary',
-                                };
+                                if ($status === 'checked_in') {
+                                    $statusClass = 'success';
+                                } elseif ($status === 'checked_out') {
+                                    $statusClass = 'secondary';
+                                } elseif ($status === 'confirmed') {
+                                    $statusClass = 'primary';
+                                } elseif ($status === 'cancelled') {
+                                    $statusClass = 'danger';
+                                } else {
+                                    $statusClass = 'secondary';
+                                }
 
                                 $paymentClass = strtolower($booking->payment_status) === 'paid'
                                     ? 'success'
                                     : 'danger';
                             @endphp
 
-                            <tr>                                    <td>{{ $booking->customer->id + 50 }}</td>
+<tr>                                <td>{{ $booking->customer->id + 50 }}</td>
                                     <td>{{ $booking->customer->first_name }}</td>
                                     <td>{{ $booking->room->room_type }}</td>
                                     <td>{{ $booking->room->room_number }}</td>

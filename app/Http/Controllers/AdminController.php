@@ -15,6 +15,10 @@ class AdminController extends Controller
         $today_bookings = Booking::whereDate('created_at',today()->now());
         return $today_bookings;
     }
+    public function getPaidBookings() {
+        $paid_bookings = Booking::where('payment_status','paid');
+        return $paid_bookings;
+    }
     public function dashboard() {
         $total_rooms = Room::count();
         $total_users = User::count();
@@ -24,7 +28,7 @@ class AdminController extends Controller
         $todays_booking = $this->getTodayBookings()->get()->count();
         $monthly_bookings = Booking::whereMonth('created_at', now()->month)->count();
         $total_revenue = 0;
-        $paid_bookings = Booking::where('payment_status','paid')->get();
+        $paid_bookings = $this->getPaidBookings()->get();
         foreach($paid_bookings as $booking){
             $check_in = $booking->checked_in;
             $check_out = $booking->checked_out;
@@ -47,14 +51,11 @@ class AdminController extends Controller
         return view('admin.dashboard.reports.today_booking', compact('todaysBooking'));    
     }
     public function total_revenue() {
-        $bookings = Booking::whereDate('checked_out','<=',today())->whereNull('cancelled_at')->get();
+        $bookings = $this->getPaidBookings()->get();
         $fourDaysAgo = Carbon::today()->subDays(4)->toDateString();
         $revenueByDay = Booking::whereDate('checked_in', '>=', $fourDaysAgo)
                    ->orderBy('created_at', 'desc')
                    ->get();
-        
-        // dd($revenueByDay);
-        return view('admin.dashboard.reports.total_revenue', compact('bookings','revenueByDay'));
+            return view('admin.dashboard.reports.total_revenue', compact('bookings','revenueByDay'));
         }
-
     }

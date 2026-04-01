@@ -20,13 +20,19 @@
         <hr>
 
         <h3 style="color:#34495e;">Booking Details</h3>
-
+        @php
+     
+            $totalDays = $booking->checked_in->diffInDays($booking->checked_out);
+            $pricePerNight = (int) str_replace('$', '', $booking->room->price);
+            $totalAmount = $totalDays * $pricePerNight;
+        @endphp
         <p><strong>Booking ID:</strong> #{{ $booking->id }}</p>
         <p><strong>Room:</strong> {{ ucfirst($booking->room->room_type)  }} Bed</p>
-        <p><strong>Check-in Date:</strong> {{ $booking->checked_in->format('d M Y') }}</p>
-        <p><strong>Check-out Date:</strong> {{ $booking->checked_out->format('d M Y') }}</p>
-        <p><strong>Total Amount Paid:</strong> $200</p>
-        <p><strong>Payment Status:</strong> {{ ucfirst($booking->payment_status) }}</p>
+        <p><strong>Check in Date:</strong> {{ $booking->checked_in->format('d M Y') }}</p>
+        <p><strong>Check out Date:</strong> {{ $booking->checked_out->format('d M Y') }}</p>
+        <p><strong>Total Days:</strong> {{ $totalDays }}</p>
+        <p><strong>Price per Night:</strong> {{ $booking->room->price }}</p>
+        <p><strong>Total Amount Paid:</strong> ${{ number_format($totalAmount, 2) }}</p>
 
         <hr>
 
@@ -48,7 +54,7 @@
             Warm regards,<br>
             <strong>{{ config('app.name') }}</strong><br>
             Customer Support Team<br>
-            Email: support@yourhotel.com<br>
+            Email: support@umbrella.com<br>
             Phone: +1 234 567 890
         </p>
 

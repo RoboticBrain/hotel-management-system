@@ -11,7 +11,7 @@
 <form method="post" class="d-flex align-items-center gap-2" action="{{ $route }}">
     @csrf
     @method('POST')
-    <!-- Search -->
+  
     <input type="text"
            name="search"
            value="{{ request('search') }}"
@@ -19,7 +19,7 @@
            placeholder="{{ $placeholder }}"
            style="width: 300px;">
 
-    <!-- Status Filter -->
+    
     @if(count($statuses))
         <select name="status" class="form-select">
             <option value="">All Status</option>
@@ -32,7 +32,7 @@
         </select>
     @endif
 
-    <!-- Room Type Filter -->
+ 
     @if(count($roomTypes))
         <select name="room_type" class="form-select">
             <option value="">All Types</option>
@@ -45,7 +45,7 @@
         </select>
     @endif
 
-    <!-- Date Filter -->
+    
     @if($dateFilter)
         <input type="date" name="start_date"
                value="{{ request('start_date') }}"
@@ -56,7 +56,7 @@
                class="form-control">
     @endif
 
-    <!-- Price Filter -->
+    
     @if($priceFilter)
         <input type="number" name="min_price"
                value="{{ request('min_price') }}"
