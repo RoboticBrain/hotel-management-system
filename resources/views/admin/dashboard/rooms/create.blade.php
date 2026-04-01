@@ -21,13 +21,15 @@
                             <div class="mt-3">
                                 <x-label>Room Number</x-label>
                                 <x-input type="text" name="room_number" :value="old('room_number')"></x-input>
+                                <x-error name="room_number"></x-error>
                             </div>
 
                             <div class="mt-3">
                                 <x-label>Room Price</x-label>
-                                <x-input type="text" name="price" value="$" required=""></x-input>
+                                <x-input type="text" name="price" value="" value="$"></x-input>
+                                <x-error name="price"></x-error>
+
                             </div>
-                            <x-error name="room-type"></x-error>
 
                             <div class="mt-3">
                                 <x-label>Room Status</x-label>
@@ -36,7 +38,7 @@
                             <div class="mt-3">
                             <x-label for="image">Room Image</x-label>
                             <input type="file" name="image" id="image" onchange="previewImg(event)" class="form-control" />                            </div>
-
+                            <x-error name="image"></x-error>
                             <button class="btn btn-success w-100 mt-4" type="submit">
                                 Add Room
                             </button>

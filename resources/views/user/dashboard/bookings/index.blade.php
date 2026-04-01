@@ -82,7 +82,7 @@
 
                             <ul class="list-unstyled mt-3 booking-info">
 
-                                @if($booking->customer_status == 'Checked_out')
+                                @if($booking->customer_status == 'Checked_out' || $booking->customer_status == 'Confirmed')
 
                                     <li>
                                         <strong>Checked in:</strong>

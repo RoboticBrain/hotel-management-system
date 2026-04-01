@@ -37,12 +37,16 @@ class RoomController extends Controller
             'room_type'   => 'required|string|',
             'room_number' => 'required|string|max:3|',
             'price'       => 'required|string',
+            'status' => 'required|string|',
         ]);
         if($room->update($updated_data)){
             return redirect()->route('admin.show.rooms')->with('notification',['type'=>'success','message'=>'Room '. $room->room_number . ' updated successfully']);
         }
     }
     public function destroy(Room $room){
+        if($room->status == 'Booked'){
+            return redirect()->back()->with('notification',['type'=>'danger','message'=>'Room '. $room->room_number . ' is currently booked and cannot be deleted']);
+        }
         $deleted = $room->delete();
         if($deleted){
             return redirect()->route('admin.show.rooms')->with('notification',['type'=>'success','message'=>'Room deleted successfully']);

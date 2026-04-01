@@ -43,6 +43,16 @@
                     Sign into your account
                   </h5>
 
+                  @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <ul class="mb-0">
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
+
                   <div data-mdb-input-init class="form-outline mb-4">
                     <label class="form-label" for="email">Email address</label>
                     <input type="email"

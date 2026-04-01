@@ -35,7 +35,7 @@ class BookingsController extends Controller
         
     }
     public function create() {
-        $customers = Customer::orderBy('first_name')->get();
+        $customers = Customer::with('user')->orderBy('first_name')->get();
         $rooms = Room::where('status','available')->get();
         // dd($rooms->count());
         return view('admin.dashboard.bookings.create', compact('customers','rooms'));

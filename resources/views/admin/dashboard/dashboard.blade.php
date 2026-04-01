@@ -6,7 +6,6 @@
 @section('content')
 <div class="container-fluid">
 
-    <!-- ================= FIRST ROW (Existing Summary) ================= -->
     <div class="row g-3">
 
         <div class="col-md-3">
@@ -25,7 +24,7 @@
                 <div class="card bg-secondary text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Total Rooms</h5>
-                        <h2 class="card-text">{{ $total_rooms }}</h2> 
+                        <h2 class="card-text">{{ $roomStats->total }}</h2> 
                     </div>
                 </div>
             </a>
@@ -47,7 +46,7 @@
                 <div class="card bg-danger text-white shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Rooms Booked</h5>
-                        <h2 class="card-text">{{ $total_booked }}</h2> 
+                        <h2 class="card-text">{{ $roomStats->booked }}</h2> 
                     </div>
                 </div>
             </a>
@@ -62,7 +61,7 @@
              <a href="{{ route('admin.show.bookings') }}" class="card-link text-decoration-none"><div class="card bg-primary text-white shadow-sm">
                 <div class="card-body">
                    <h5 class="card-title">Total Bookings</h5>
-                    <h2>{{ $total_bookings }}</h2>
+                    <h2>{{ $roomStats->booked }}</h2>
                 </div>
             </div>
                </a> 

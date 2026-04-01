@@ -55,6 +55,32 @@
         @media screen and (max-width: 575px) {
             #sidebarshow { display: inline; }
             #sidebartoggle { display: none; }
+            aside {
+                position: fixed;
+                z-index: 1030;
+                width: 100%;
+                height: calc(100vh - 68px);
+                transform: translateX(-100%);
+                transition: transform 1s ease;
+            }
+            aside.show {
+                transform: translateX(0);
+            }
+            main {
+                margin-left: 0;
+            }
+        }
+
+        aside.collapsed {
+            width: 0 !important;
+            min-width: 0;
+            visibility: hidden;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        main.expanded {
+            margin-left: 0 !important;
         }
     </style>
 </head>
@@ -83,6 +109,9 @@
                 <button class="btn btn-outline-secondary me-2" type="button" id="sidebartoggle" onclick="toggleSidebar()">
                     <i class="bi bi-arrows-expand-vertical"></i>
                 </button>
+                <button class="btn btn-outline-secondary me-2 d-none" type="button" id="sidebarshow" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
                 <a class="navbar-brand" href="#">Umbrella Hotel Management System</a>
             </div>
             <div class="d-flex align-items-center">
@@ -90,51 +119,11 @@
                 <div class="green-circle"></div>
                 <!-- Theme dropdown -->
              <div class="dropdown-center" style="padding-left: 10px;">
-          <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
-            aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
-            <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
-              <use href="#circle-half"></use>
+          <button class="btn btn-bd-primary py-2 d-flex align-items-center" id="bd-theme" type="button" aria-label="Dark theme active">
+            <svg class="bi my-1" width="1em" height="1em">
+              <use href="#moon-stars-fill"></use>
             </svg>
-            <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-            <li>
-              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
-                aria-pressed="false">
-                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em">
-                  <use href="#sun-fill"></use>
-                </svg>
-                Light
-                <svg class="bi ms-auto d-none" width="1em" height="1em">
-                  <use href="#check2"></use>
-                </svg>
-              </button>
-            </li>
-            <li>
-              <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
-                aria-pressed="false">
-                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em">
-                  <use href="#moon-stars-fill"></use>
-                </svg>
-                Dark
-                <svg class="bi ms-auto d-none" width="1em" height="1em">
-                  <use href="#check2"></use>
-                </svg>
-              </button>
-            </li>
-            <li>
-              <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto"
-                aria-pressed="true">
-                <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em">
-                  <use href="#circle-half"></use>
-                </svg>
-                Auto
-                <svg class="bi ms-auto d-none" width="1em" height="1em">
-                  <use href="#check2"></use>
-                </svg>
-              </button>
-            </li>
-          </ul>
         </div>
             </div>
         </div>
@@ -164,11 +153,7 @@
         <hr>
     @if(auth()->user()->isAdmin)
         <ul class="nav nav-pills flex-column mb-auto">
-        <li>
-            <x-nav-link class="bi bi-house" :href="route('admin.dashboard.home')" :active="request()->is('admin/dashboard/home')">
-                Home
-            </x-nav-link>
-        </li>
+   
         <li>
             <x-nav-link class="bi bi-speedometer2" :href="route('admin.dashboard')" :active="request()->is('admin/dashboard')">
                 Dashboard
@@ -224,14 +209,7 @@
 
     {{-- Home --}}
     <li class="nav-item">
-        <a class="nav-link text-white d-flex align-items-center" 
-           data-bs-toggle="collapse" 
-           href="#homeMenu" 
-           role="button" 
-           aria-expanded="{{ request()->is('user/dashboard/home') ? 'true' : 'false' }}" 
-           aria-controls="homeMenu">
-            <i class="bi bi-house me-2"></i> Home
-        </a>
+        
         <div class="collapse {{ request()->is('user/dashboard/home') ? 'show' : '' }}" id="homeMenu">
             <ul class="list-unstyled fw-normal small ps-4">
                 <li>
@@ -396,8 +374,22 @@
     <script>
         // Sidebar toggle
         function toggleSidebar() {
-            document.getElementById('main').classList.toggle('col-sm-12');
-            document.getElementById('main').classList.toggle('col-sm-10');
+            const sidebar = document.getElementById('sidebar');
+            const main = document.getElementById('main');
+
+            const isOpen = sidebar.classList.contains('show') && !sidebar.classList.contains('collapsed');
+
+            if (isOpen) {
+                sidebar.classList.add('collapsed');
+                sidebar.classList.remove('show');
+                main.classList.add('col-sm-12', 'expanded');
+                main.classList.remove('col-sm-10');
+            } else {
+                sidebar.classList.remove('collapsed');
+                sidebar.classList.add('show');
+                main.classList.remove('col-sm-12', 'expanded');
+                main.classList.add('col-sm-10');
+            }
         }
 
         // Page load animation
@@ -405,6 +397,7 @@
             document.body.classList.add('loaded');
         });
     </script>
+    @stack('scripts')
 </body>
 </html>
 

@@ -30,7 +30,7 @@ class UserRoomController extends Controller
     }
 
     public function index() {
-        $available_rooms = Room::all();
+        $available_rooms = Room::where('status','!=','Not Available')->get();
         return view('user.dashboard.rooms.index', compact('available_rooms'));
     }
     public function create(Room $room){

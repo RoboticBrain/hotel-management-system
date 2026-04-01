@@ -38,10 +38,14 @@
                                 Room No: {{ $room->room_number }}
                             </p>
                         </div>
+                         <a href="{{ route('user.create.room',$room->id) }}" class="btn btn-{{ $room->status == 'Booked' ? 'secondary' : 'success' }} mt-auto w-100">
+                                Book Now
+                            </a>
                     </div>
                 </div>
             @endforeach
         </div>
+         
     </div>
     @endif
 @endsection

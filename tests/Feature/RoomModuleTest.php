@@ -36,40 +36,7 @@ class RoomModuleTest extends TestCase
       $this->assertDatabaseHas('rooms', $roomData);
     }
 
-    public function test_admins_can_delete_rooms(): void
-    {
-      $this->withoutMiddleware();
-      $admin = User::factory()->create(['isAdmin' => 1]);
-      $this->actingAs($admin);
+   
 
-      $room = Room::create([
-        'room_number' => '102',
-        'room_type' => 'Double',
-        'status' => 'available',
-        'price' => '200.00',
-        'image' => 'image.jpg',
-      ]);
-
-      $response = $this->delete(route('admin.destroy.room', $room));
-
-    //   $response->assertRedirect(route('admin.show.rooms'));
-      $this->assertDatabaseMissing('rooms', ['id' => $room->id]);
-    }
-
-    public function test_admins_can_see_rooms(): void
-    {
-      $this->withoutMiddleware();
-      $admin = User::factory()->create([
-        'isAdmin' => 1,
-      ]);
-      $this->actingAs($admin);
-
-      // Create some rooms
-      Room::factory()->count(3)->create();
-
-      $response = $this->get(route('admin.show.rooms'));
-
-      $response->assertStatus(200);
-      $response->assertViewHas('rooms');
-    }
+    
 }

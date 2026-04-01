@@ -24,25 +24,33 @@ class UserDashboardController extends Controller
         return $active_bookings;
     }
     public function getCompleteBookings() {
-        $completed_bookings = Booking::whereDate('checked_out','<',$this->getTodayDate())->whereNull('cancelled_at');
+        $completed_bookings = Booking::where('customer_id', $this->getCustomerID())
+            ->whereDate('checked_out','<',$this->getTodayDate())
+            ->whereNull('cancelled_at');
         return $completed_bookings;
     }
+
     public function getPaidBookings() {
-        $paid_bookings = Payment::where('status','Paid');
+        $paid_bookings = Payment::where('status','Paid')
+            ->whereHas('booking', function ($query) {
+                $query->where('customer_id', $this->getCustomerID());
+            });
+
         return $paid_bookings;
     }
+
     public function getCancelledBookings() {
         $cancelled_bookings = Booking::where('customer_id', $this->getCustomerID())->whereNotNull('cancelled_at');
         return $cancelled_bookings;
     }
+
     public function getTotalPayment() {
-        $totalPay = $this->getPaidBookings()->get()->sum(function ($booking) {
-        $days = $booking->checked_in
-            ->copy()
-            ->startOfDay()
-            ->diffInDays($booking->checked_out->copy()->startOfDay());
-        return (int) str_replace('$','',$booking->room->price) * (int)$days;
-        });
+        $totalPay = Payment::where('status', 'Paid')
+            ->whereHas('booking', function ($query) {
+                $query->where('customer_id', $this->getCustomerID());
+            })
+            ->sum('amount');
+
         return $totalPay;
     }
 
@@ -68,7 +76,7 @@ class UserDashboardController extends Controller
     public function active_bookings() {
         $totalPay = 0;
         $active_bookings = $this->getActiveBookings()->get();
-       $this->getActiveBookings()->get()->sum(function ($booking) use ($totalPay){
+        $active_bookings->sum(function ($booking) use ($totalPay){
             $totalPay += (int) str_replace('$','',$booking->room->price);
         });
         return view('user.dashboard.active_bookings', compact('active_bookings','totalPay'));
@@ -82,8 +90,14 @@ class UserDashboardController extends Controller
         return view('user.dashboard.cancelled_bookings',compact('cancelled_bookings'));
     }
     public function payment_summary() {
-        $bookings = $this->getCompleteBookings()->get();
+        $bookings = Booking::where('customer_id', $this->getCustomerID())
+            ->whereHas('payment', function ($query) {
+                $query->where('status', 'Paid');
+            })
+            ->with('room')
+            ->get();
+
         $totalPay = $this->getTotalPayment();
-        return view('user.dashboard.total_spending',compact('bookings','totalPay'));
+        return view('user.dashboard.total_spending', compact('bookings','totalPay'));
     }
 }

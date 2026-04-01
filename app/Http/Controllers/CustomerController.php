@@ -7,7 +7,7 @@ use illuminate\Support\Arr;
 class CustomerController extends Controller
 {
     public function index() {
-        $customers = Customer::all();
+        $customers = Customer::with('user')->paginate(8);
         return view('admin.dashboard.customers.index', compact('customers'));
 
     }

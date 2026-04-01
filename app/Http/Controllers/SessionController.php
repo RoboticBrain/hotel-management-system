@@ -14,12 +14,14 @@ class SessionController extends Controller
             "password"=> "required|min:5",
         ]);
 
-        if(Auth::attempt($validated)){
-            $request->session()->regenerate();        
+        if (Auth::attempt($validated)) {
+            $request->session()->regenerate();
+        } else {
+            return redirect()->back()
+                ->withErrors(['email' => 'Invalid credentials, please check email and password.'])
+                ->withInput();
         }
-        else {
-            return redirect()->back();
-        }
+
         $currentUser = Auth::user();
         if($currentUser->isAdmin){
             return redirect()->intended(route('admin.show.bookings'))->with('notification',['type'=>'success','message'=>'Admin logged in']);

@@ -25,7 +25,7 @@ class RoomCreateRequest extends FormRequest
             'room_type'   => 'required|string|',
             'room_number' => 'required|string|max:3|unique:rooms,room_number',
             'status'      => 'required|string|',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,webp|',
+            'image'       => 'required|mimes:jpg,jpeg,png,webp|',
             'price'       => 'required|string',
         ];
     }
