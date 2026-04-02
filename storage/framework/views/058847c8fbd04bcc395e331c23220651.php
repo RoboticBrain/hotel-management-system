@@ -1,0 +1,1 @@
+<label class="form-label text-white"><?php echo e($slot); ?></label><?php /**PATH E:\php internship\Laravel final project\hotel_management_system\resources\views/components/label.blade.php ENDPATH**/ ?>
