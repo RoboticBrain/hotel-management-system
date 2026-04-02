@@ -9,7 +9,7 @@
                                 <?php if($available_rooms->count() < 1): ?>
                                     <th>List</th>
                                     <tr colspan="10">
-                                       <td class="text-start text-danger"> No rooms available</td>
+                                       <td class="text-start text-danger fs-6"> No rooms available</td>
                                     </tr>
                                     </tr>
                         
