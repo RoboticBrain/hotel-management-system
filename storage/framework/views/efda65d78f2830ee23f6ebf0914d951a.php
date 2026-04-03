@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Active Bookings'); ?>
 <?php $__env->startSection('selection', 'Active Bookings'); ?>
 

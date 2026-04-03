@@ -51,10 +51,7 @@
         </div>
 
     </div>
-
-    <!-- ================= SECOND ROW (Reporting Section) ================= -->
     <div class="row g-3 mt-4">
-
        <div class="col-md-3">
              <a href="<?php echo e(route('admin.show.bookings')); ?>" class="card-link text-decoration-none"><div class="card bg-primary text-white shadow-sm">
                 <div class="card-body">

@@ -1,7 +1,7 @@
 
 
 <?php $__env->startSection('title', 'My Bookings'); ?>
-<?php $__env->startSection('selection', 'My Bookings'); ?>
+<?php $__env->startSection('selection', 'Bookings'); ?>
 
 <?php $__env->startSection('content'); ?>
 
