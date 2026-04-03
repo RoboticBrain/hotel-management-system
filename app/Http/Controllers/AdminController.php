@@ -25,9 +25,8 @@ class AdminController extends Controller
         SUM(status = 'Booked') as booked,
         SUM(status = 'Available') as available
         ")->first();
-        $total_rooms_available = Room::where('status','Available')->count();
         $total_bookings = Booking::count(); // get all bookings
-        $todays_booking = $this->getTodayBookings()->get()->count();
+        $todays_booking = $this->getTodayBookings()->count();
         $paid_bookings = $this->getPaidBookings()->get();
         $monthly_bookings = Booking::whereMonth('created_at', now()->month)->count();
         $total_users = User::count();
@@ -38,7 +37,7 @@ class AdminController extends Controller
             $days = $check_in->diffInDays($check_out);
             $total_revenue += floatval($days) * floatval(str_replace('$', '', $booking->room->price));
         }
-        return view('admin.dashboard.dashboard',compact(['roomStats','total_users','total_rooms_available','todays_booking','monthly_bookings','total_revenue']));
+        return view('admin.dashboard.dashboard',compact(['roomStats','total_users','total_bookings','todays_booking','monthly_bookings','total_revenue']));
     }
     public function available_rooms() {
         $available_rooms = Room::where('status','Available')->get();
