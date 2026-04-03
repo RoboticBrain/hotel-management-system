@@ -5,10 +5,10 @@
 
 <?php $__env->startSection('content'); ?>
 
-<div class="container py-5">
+<div class="container py-4">
      <?php if($cancelled_bookings->count() < 1): ?>
             <ul class="list-unstyled text-secondary">
-                <li class="mb-2 text-danger"><i class="bi bi-x-circle-fill me-2 text-danger"></i>No Cancelled bookings found for your account.</li>
+                <li class="text-danger"><i class="bi bi-x-circle-fill me-2 text-danger"></i>No Cancelled bookings found for your account.</li>
             <?php else: ?>
                
                 <div class="row g-4">
@@ -37,7 +37,6 @@
                             
                                     <li><strong>Cancelled on:</strong> <?php echo e(Carbon\Carbon::parse($booking->cancelled_at)->format('d M Y h:i A')); ?></li>
                                 </ul>
-                                <!-- Price Section -->
                             </div>
 
                             </div>

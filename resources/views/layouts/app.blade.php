@@ -117,14 +117,6 @@
             <div class="d-flex align-items-center">
                 <p class="mb-0 fw-bold">System Online</p>
                 <div class="green-circle"></div>
-                <!-- Theme dropdown -->
-             <div class="dropdown-center" style="padding-left: 10px;">
-          <button class="btn btn-bd-primary py-2 d-flex align-items-center" id="bd-theme" type="button" aria-label="Dark theme active">
-            <svg class="bi my-1" width="1em" height="1em">
-              <use href="#moon-stars-fill"></use>
-            </svg>
-          </button>
-        </div>
             </div>
         </div>
     </nav>

@@ -1,4 +1,4 @@
-<?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
+import axios from 'axios';
+window.axios = axios;
 
-$__newAttributes = [];
-$__propNames = \Illuminate\View\Compo
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
