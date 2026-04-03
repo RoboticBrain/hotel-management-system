@@ -3,8 +3,19 @@
 @section('selection','Rooms')
 @section('content')
   <div class="container-fluid py-4">
-    @if($available_rooms->count() < 1)
-        <h3 class="text-white mb-4 fs-4 badge bg-danger">No Rooms available</h3>
+          <table class="table fixed-table align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                @if($available_rooms->count() < 1)
+                                    <th>List</th>
+                                    <tr colspan="10">
+                                       <td class="text-start text-danger fs-6"> No rooms available</td>
+                                    </tr>
+                                    </tr>
+                        
+            </thead>
+            </table>
+
     @else
         <h3 class="text-white mb-4">Available Rooms</h3>
         <div class="row g-4">
