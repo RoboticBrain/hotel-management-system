@@ -8,25 +8,18 @@
 <div class="container py-5">
 
     <?php if($active_bookings->count() < 1): ?>
-
+    
         <ul class="list-unstyled text-secondary">
-            <li class="mb-2 text-danger">
+            <li class=" text-danger">
                 <i class="bi bi-x-circle-fill me-2 text-danger"></i>
-                No active bookings found for your account.
+                No active bookings found.
             </li>
-            <li class="mb-2">
-                <i class="bi bi-info-circle-fill me-2"></i>
-                Make a new booking to see it listed here.
-            </li>
-            <li>
-                <i class="bi bi-calendar-check-fill me-2"></i>
-                Check your past bookings in the "My Bookings" section.
-            </li>
+           
         </ul>
 
     <?php else: ?>
 
-        <h3 class="mb-4 text-white">Active Bookings</h3>
+    
 
         <div class="row g-4">
             <?php $__currentLoopData = $active_bookings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $booking): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

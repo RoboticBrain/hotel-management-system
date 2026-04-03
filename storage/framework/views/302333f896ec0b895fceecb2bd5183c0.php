@@ -33,7 +33,7 @@
                 <div class="card bg-success text-dark shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Rooms Available</h5>
-                        <h2 class="card-text"><?php echo e($total_rooms_available); ?></h2> 
+                        <h2 class="card-text"><?php echo e($roomStats->available); ?></h2> 
                     </div>
                 </div>
             </a>
@@ -59,7 +59,7 @@
              <a href="<?php echo e(route('admin.show.bookings')); ?>" class="card-link text-decoration-none"><div class="card bg-primary text-white shadow-sm">
                 <div class="card-body">
                    <h5 class="card-title">Total Bookings</h5>
-                    <h2><?php echo e($roomStats->booked); ?></h2>
+                    <h2><?php echo e($total_bookings); ?></h2>
                 </div>
             </div>
                </a> 

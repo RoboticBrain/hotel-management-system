@@ -1,15 +1,20 @@
 
 <?php $__env->startSection('title','Booked Rooms'); ?>
-<?php $__env->startSection('selection','Rooms'); ?>
+<?php $__env->startSection('selection','Booked Rooms'); ?>
 <?php $__env->startSection('content'); ?>
   <div class="container-fluid py-4">
-             <table class="table fixed-table align-middle mb-0">
+             <table class="table fixed-table align-middle mb-0 rounded border-2">
                         <thead class="table-dark">
                             <tr>
                                 <?php if($booked_rooms->count() < 1): ?>
-                                    <th colspan="10" class="text-start text-danger">
-                                        No customers found.
+                                    <tr>
+                                        <th class="text-start">list</th>
+                                    </tr>
+                                    <tr>
+                                    <td colspan="10" class="text-start text-danger">
+                                        No Bookings so far.
                                     </th>
+                                    </tr>
                                     </thead>
         </table>
     <?php else: ?>

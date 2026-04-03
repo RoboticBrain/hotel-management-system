@@ -35,7 +35,7 @@
                 <div class="card bg-success text-dark shadow-sm clickable-card">
                     <div class="card-body">
                         <h5 class="card-title">Rooms Available</h5>
-                        <h2 class="card-text">{{ $total_rooms_available}}</h2> 
+                        <h2 class="card-text">{{ $roomStats->available}}</h2> 
                     </div>
                 </div>
             </a>
@@ -53,15 +53,12 @@
         </div>
 
     </div>
-
-    <!-- ================= SECOND ROW (Reporting Section) ================= -->
     <div class="row g-3 mt-4">
-
        <div class="col-md-3">
              <a href="{{ route('admin.show.bookings') }}" class="card-link text-decoration-none"><div class="card bg-primary text-white shadow-sm">
                 <div class="card-body">
                    <h5 class="card-title">Total Bookings</h5>
-                    <h2>{{ $roomStats->booked }}</h2>
+                    <h2>{{ $total_bookings }}</h2>
                 </div>
             </div>
                </a> 
