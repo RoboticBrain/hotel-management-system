@@ -20,7 +20,7 @@ class UserDashboardController extends Controller
        return Carbon::today();
     }
     public function getActiveBookings() {
-        $active_bookings = Booking::where('customer_id',$this->getCustomerID())->whereDate('checked_in', '<=',$this->getTodayDate())->whereDate('checked_out','>',$this->getTodayDate());
+        $active_bookings = Booking::whereNull('cancelled_at')->where('customer_id',$this->getCustomerID())->whereDate('checked_in', '<=',$this->getTodayDate())->whereDate('checked_out','>',$this->getTodayDate());
         return $active_bookings;
     }
     public function getCompleteBookings() {
