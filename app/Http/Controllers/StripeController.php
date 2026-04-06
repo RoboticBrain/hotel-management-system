@@ -70,6 +70,7 @@ class StripeController extends Controller
         $session = \Stripe\Checkout\Session::retrieve($session_id);
         if($session->payment_status === 'unpaid'){
         $booking->payment_status = 'unpaid';
+        $booking->cancelled_at = now()->addHours(5);
         $booking->save();
         $booking->room->status = 'Available';
         $booking->room->save();

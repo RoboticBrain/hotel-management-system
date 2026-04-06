@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title','Booked Rooms'); ?>
 <?php $__env->startSection('selection','Booked Rooms'); ?>
 <?php $__env->startSection('content'); ?>
