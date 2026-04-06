@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-
 // public routes
 Route::middleware('web')->group(function () {
     Route::get('/login',[SessionController::class,'create'])->name('login');
@@ -29,6 +28,8 @@ Route::middleware('web')->group(function () {
 Route::middleware('auth')->group(function() {
     Route::post('/logout', [SessionController::class,'destroy'])->name('logout');
     Route::get('/profile/{customer}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/settings/{customer}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update/{customer}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 // Authenticated routes for Admin user

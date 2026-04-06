@@ -316,7 +316,7 @@
                 <strong>{{ auth()->user()->customer ? auth()->user()->customer->first_name : auth()->user()->email }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile.edit',auth()->user()->id) }}">Settings</a></li>
                 <li><a class="dropdown-item" href="{{ route('profile.show', auth()->user()->id) }}">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
              
@@ -325,7 +325,7 @@
                         @csrf
                         <button type="submit" class="dropdown-item">Sign out</button>
                     </form>
-                    
+
                 </li>
             </ul>
         </div>
