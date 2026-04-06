@@ -3,10 +3,10 @@
 <?php $__env->startSection('title', 'profile'); ?>
 
 <?php
-    $adminOruser = $customer->user->isAdmin ? 'Admin Profile' : 'User Profile';
+    $adminOruser = $customer->user->isAdmin ? 'admin profile' : 'user profile';
 ?>
 
-<?php $__env->startSection('selection', $adminOruser); ?>
+<?php $__env->startSection('selection', 'Edit ' . $adminOruser); ?>
 
 <?php $__env->startSection('content'); ?>
 <section>
@@ -78,13 +78,18 @@
 
       <!-- Submit -->
       <div class="text-end mt-3">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary me-2">
           Update Profile
         </button>
+        <a href="<?php echo e(route('profile.change.password',$customer->id)); ?>"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+          Change Password
+        </button> </a>
       </div>
 
-    </form>
+      </form>
+    </div>
   </div>
-</section>
+</div>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH E:\php internship\Laravel final project\hotel_management_system\resources\views/user/profile/settings.blade.php ENDPATH**/ ?>

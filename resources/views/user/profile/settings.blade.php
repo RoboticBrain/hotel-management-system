@@ -3,10 +3,10 @@
 @section('title', 'profile')
 
 @php
-    $adminOruser = $customer->user->isAdmin ? 'Admin Profile' : 'User Profile';
+    $adminOruser = $customer->user->isAdmin ? 'admin profile' : 'user profile';
 @endphp
 
-@section('selection', $adminOruser)
+@section('selection', 'Edit ' . $adminOruser)
 
 @section('content')
 <section>
@@ -77,12 +77,17 @@
 
       <!-- Submit -->
       <div class="text-end mt-3">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary me-2">
           Update Profile
         </button>
+        <a href="{{ route('profile.change.password',$customer->id) }}"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+          Change Password
+        </button> </a>
       </div>
 
-    </form>
+      </form>
+    </div>
   </div>
-</section>
+</div>
+
 @endsection

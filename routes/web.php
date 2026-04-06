@@ -3,6 +3,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MyBookingController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SessionController;
@@ -22,6 +23,7 @@ Route::get('/', function () {
 Route::middleware('web')->group(function () {
     Route::get('/login',[SessionController::class,'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store'])->name('login.store');
+  
 });
 
 // Authenticated route for logout
@@ -30,7 +32,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile/{customer}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/settings/{customer}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update/{customer}', [ProfileController::class, 'update'])->name('profile.update');
-});
+    Route::get('/change-password/user/{user}', [PasswordController::class, 'edit'])->name('profile.change.password');
+    Route::post('/password/update/{user}', [PasswordController::class, 'update'])->name('profile.update.password');
+    });
 
 // Authenticated routes for Admin user
 Route::prefix('admin/dashboard')->middleware(['auth','isAdmin'])->group( function() {
