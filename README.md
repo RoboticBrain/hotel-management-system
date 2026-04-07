@@ -19,7 +19,7 @@
 - **Backend:** Laravel, PHP
 - **Database:** MySQL
 - **Frontend:** Bootstrap, HTML, CSS
-- **Tools:** Composer, Artisan CLI
+- **Tools:** Composer, Artisan CLI, PhpMyadmin, TablePlus
 
 ---
 ## 🖼️ Screenshots
