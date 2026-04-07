@@ -26,4 +26,4 @@
 ## 📦 Installation
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/hotel-management-system.git
+   git clone https://github.com/RoboticBrain/hotel-management-system
