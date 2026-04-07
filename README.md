@@ -22,6 +22,10 @@
 - **Tools:** Composer, Artisan CLI
 
 ---
+## 🖼️ Screenshots
+<img src="images/project5-1.png" alt="Dashboard" width="600">
+<img src="images/project5-2.png" alt="Booking Page" width="600">
+<img src="images/project5-5.png" alt="Booking Page" width="600">
 
 ## 📦 Installation
 1. Clone the repository:  
