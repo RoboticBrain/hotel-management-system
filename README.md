@@ -19,9 +19,15 @@
 - **Backend:** Laravel, PHP
 - **Database:** MySQL
 - **Frontend:** Bootstrap, HTML, CSS
-- **Tools:** Composer, Artisan CLI
+- **Tools:** Composer, Artisan CLI, PhpMyadmin, TablePlus
 
 ---
+## 🖼️ Screenshots
+<img src="images/project5-1.png" alt="Dashboard" width="600">
+<img src="images/project5-2.png" alt="Booking Page" width="600">
+<img src="images/project5-7.png" alt="Booking Page" width="600">
+<img src="images/project5-6.png" alt="Booking Page" width="600">
+<img src="images/project5-5.png" alt="Booking Page" width="600">
 
 ## 📦 Installation
 1. Clone the repository:  
