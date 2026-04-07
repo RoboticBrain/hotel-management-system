@@ -16,14 +16,16 @@ use App\Http\Controllers\SearchFilters\PaymentFilterController;
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.login');
+Route::get('/reset', function () {
+    return view('emails.password-reset');
 });
 // public routes
 Route::middleware('web')->group(function () {
     Route::get('/login',[SessionController::class,'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store'])->name('login.store');
-  
+    Route::get('/forgot-password',[PasswordController::class,'showPasswordResetPage'])->name('profile.show.reset.page');
+    Route::post('/password/reset', [PasswordController::class,'resetPassword'])->name('profile.reset.password');
+
 });
 
 // Authenticated route for logout

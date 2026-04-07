@@ -83,7 +83,7 @@
                     </button>
                   </div>
 
-                  <a class="small text-muted" href="#!">Forgot password?</a>
+                  <a class="small text-muted" href="{{ route('profile.show.reset.page') }}">Forgot password?</a>
 
                   <p class="mb-5 pb-lg-2" style="color: #393f81;">
                     Don't have an account?
