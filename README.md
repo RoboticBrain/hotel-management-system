@@ -1,6 +1,6 @@
 # 🏨 Hotel Management System
 
-**Laravel Backend System** for managing rooms, bookings, customers, and invoices efficiently.
+**Laravel Backend System** for managing rooms, bookings, customers, and payments.
 
 ---
 
