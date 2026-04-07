@@ -9,9 +9,9 @@
 - **Booking Management:** Track and manage customer bookings.
 - **Customer Management:** Maintain detailed customer records.
 - **Admin Dashboard:** Monitor all activities with a clean interface.
+- **User Dashboard:** Manage all the user side functionality. Room bookings and payments.
 - **Billing & Invoicing:** Generate bills for completed stays.
 - **Secure Authentication:** Role-based login for admin and staff.
-- **Responsive Design:** Works on desktops, tablets, and mobile devices.
 
 ---
 
