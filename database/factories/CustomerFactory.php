@@ -18,13 +18,13 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         
-        return [
-            'first_name' => fake()->firstName(),
-            'last_name'=> fake()->lastName(),
-            'address' => fake()->address(),
-            'phone_number' => '+92' . fake()->numerify('##########'),
+       return [
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'address' => $this->faker->address(),
+            'phone_number' => '+92' . $this->faker->numerify('##########'),
             'user_id' => User::factory()->create()->id,
-        ];
+];
      
     }
 }
