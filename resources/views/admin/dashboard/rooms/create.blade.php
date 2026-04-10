@@ -20,20 +20,20 @@
                             
                             <div class="mt-3">
                                 <x-label>Room Number</x-label>
-                                <x-input type="text" name="room_number" :value="old('room_number')"></x-input>
+                                <x-input type="number" name="room_number" :value="old('room_number')"></x-input>
                                 <x-error name="room_number"></x-error>
                             </div>
 
                             <div class="mt-3">
                                 <x-label>Room Price</x-label>
-                                <x-input type="text" name="price" value="" value="$"></x-input>
+                                <x-input type="number" name="price" value="" value="$"></x-input>
                                 <x-error name="price"></x-error>
 
                             </div>
 
                             <div class="mt-3">
                                 <x-label>Room Status</x-label>
-                                <x-select name="status" :options="['Available','Occupied']"></x-select>
+                                <x-select name="status" :options="['Available']"></x-select>
                             </div>
                             <div class="mt-3">
                             <x-label for="image">Room Image</x-label>

@@ -25,7 +25,7 @@
 
                             <div class="mt-3">
                                 <x-label class="form-label text-white">Room Price</x-label>
-                                <x-input type="text" name="" value="{{ $room->price }}" readonly></x-input>
+                                <x-input type="text" name="" value="${{ $room->price }}" readonly></x-input>
                                 <x-error name=""></x-error>
                             </div>
 

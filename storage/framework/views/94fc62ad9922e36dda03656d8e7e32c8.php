@@ -147,7 +147,7 @@
                                 <div class="text-end">
                                     <div class="small text-secondary">Per Night</div>
                                     <div class="fw-semibold fs-6 text-light">
-                                        <?php echo e($booking->room->price); ?>
+                                        $<?php echo e($booking->room->price); ?>
 
                                     </div>
                                 </div>

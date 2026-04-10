@@ -51,7 +51,7 @@
                             <div class="mt-3">
                                 <div class="text-end">
                                     <div class="small text-secondary">Per Night</div>
-                                    <div class="fw-semibold fs-6 text-light">{{ $booking->room->price }}</div>
+                                    <div class="fw-semibold fs-6 text-light">${{ $booking->room->price }}</div>
                                 </div>
 
                                 <div class="price-divider my-2"></div>
@@ -59,7 +59,7 @@
                                 <div class="text-end">
                                     <div class="small text-secondary">Total</div>
                                     <div class="fw-bold fs-5 text-success">
-                                        ${{ (int)$totalDays * (int)str_replace('$','',$booking->room->price) }}
+                                        ${{ (int)$totalDays * $booking->room->price) }}
                                     </div>
                                 </div>
                             </div>

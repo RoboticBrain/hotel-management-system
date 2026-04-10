@@ -28,7 +28,7 @@
                             $checkIn  = $booking->checked_in->startOfDay();
                             $checkOut = $booking->checked_out->startOfDay();
                             $totalDays = $checkIn->diffInDays($checkOut);
-                            $totalPay += $totalDays * (int) str_replace('$','',$booking->room->price );
+                            $totalPay += $totalDays *$booking->room->price;
                         ?>
                         <tr class="align-middle">
                             <td><?php echo e($booking->checked_in->format('d M')); ?> <i class="bi bi-arrow-right"></i>  <?php echo e($booking->checked_out->format('d M')); ?></td>
@@ -36,8 +36,8 @@
                             <td><?php echo e(ucfirst($booking->room->room_type)); ?></td>
                             <td><?php echo e($booking->room->room_number); ?></td>
                             <td><?php echo e($totalDays); ?></td>
-                            <td><?php echo e($booking->room->price); ?></td>
-                            <td>$<?php echo e($totalDays * (int) str_replace('$','',$booking->room->price )); ?></td>
+                            <td>$<?php echo e($booking->room->price); ?></td>
+                            <td>$<?php echo e($totalDays * $booking->room->price); ?></td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   

@@ -86,7 +86,7 @@
                                 <td><?php echo e($payment->payment_intent_id); ?></td>
                                 <td><?php echo e($payment->booking->customer->first_name); ?> <?php echo e($payment->booking->customer->last_name); ?></td>
                                 <td><?php echo e(ucfirst($payment->booking->room->room_type)); ?> (<?php echo e($payment->booking->room->room_number); ?>)</td>
-                                <td><?php echo e($payment->amount); ?></td>
+                                <td>$<?php echo e($payment->amount); ?></td>
                                 <td><?php echo e($payment->currency); ?></td>
                                 <td><span class="badge bg-<?php echo e($payment->status == 'Paid' ? 'success' : 'danger'); ?>"><?php echo e($payment->status); ?></span></td>
                             </tr>

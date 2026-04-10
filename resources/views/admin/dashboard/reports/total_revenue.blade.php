@@ -28,7 +28,7 @@
                             $checkIn  = $booking->checked_in->startOfDay();
                             $checkOut = $booking->checked_out->startOfDay();
                             $totalDays = $checkIn->diffInDays($checkOut);
-                            $totalPay += $totalDays * (int) str_replace('$','',$booking->room->price );
+                            $totalPay += $totalDays *$booking->room->price;
                         @endphp
                         <tr class="align-middle">
                             <td>{{ $booking->checked_in->format('d M')}} <i class="bi bi-arrow-right"></i>  {{  $booking->checked_out->format('d M') }}</td>
@@ -36,8 +36,8 @@
                             <td>{{ ucfirst($booking->room->room_type) }}</td>
                             <td>{{ $booking->room->room_number }}</td>
                             <td>{{ $totalDays }}</td>
-                            <td>{{ $booking->room->price }}</td>
-                            <td>${{ $totalDays * (int) str_replace('$','',$booking->room->price ) }}</td>
+                            <td>${{ $booking->room->price }}</td>
+                            <td>${{ $totalDays * $booking->room->price }}</td>
                         </tr>
                     @endforeach
                   

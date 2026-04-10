@@ -68,7 +68,7 @@
                                 <td>{{ $payment->payment_intent_id }}</td>
                                 <td>{{ $payment->booking->customer->first_name }} {{ $payment->booking->customer->last_name }}</td>
                                 <td>{{ ucfirst($payment->booking->room->room_type) }} ({{ $payment->booking->room->room_number }})</td>
-                                <td>{{ $payment->amount }}</td>
+                                <td>${{ $payment->amount }}</td>
                                 <td>{{ $payment->currency }}</td>
                                 <td><span class="badge bg-{{ $payment->status == 'Paid' ? 'success' : 'danger' }}">{{ $payment->status }}</span></td>
                             </tr>

@@ -139,7 +139,7 @@
                                 <div class="text-end">
                                     <div class="small text-secondary">Per Night</div>
                                     <div class="fw-semibold fs-6 text-light">
-                                        {{ $booking->room->price }}
+                                        ${{ $booking->room->price }}
                                     </div>
                                 </div>
 

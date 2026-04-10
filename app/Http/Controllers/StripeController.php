@@ -74,7 +74,7 @@ class StripeController extends Controller
         $booking->save();
         $booking->room->status = 'Available';
         $booking->room->save();
-        return redirect()->back()->with('notification', ['type' => 'warning','message' => 'Payment cancelled, booking not completed' ]);
+        return redirect()->route('user.show.bookings')->with('notification', ['type' => 'warning','message' => 'Payment cancelled, booking not completed' ]);
 
         }
     }

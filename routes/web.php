@@ -16,8 +16,8 @@ use App\Http\Controllers\SearchFilters\PaymentFilterController;
 use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/reset', function () {
-    return view('emails.password-reset');
+Route::get('/', function () {
+    return view('auth.login');
 });
 // public routes
 Route::middleware('web')->group(function () {

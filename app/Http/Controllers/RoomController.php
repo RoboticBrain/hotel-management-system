@@ -26,7 +26,7 @@ class RoomController extends Controller
             $validated['image'] = $filePath;
         }
         Room::create($validated);
-        return redirect()->back()->with('notification',['type'=>'success','message'=>'Room created successfully']);
+        return redirect()->route('user.show.rooms')->with('notification',['type'=>'success','message'=>'Room created successfully']);
     }
     public function edit(Room $room) {
         return view('admin.dashboard.rooms.edit', compact('room'));
@@ -36,8 +36,8 @@ class RoomController extends Controller
         $updated_data = $request->validate([
             'room_type'   => 'required|string|',
             'room_number' => 'required|string|max:3|',
-            'price'       => 'required|string',
-            'status' => 'required|string|',
+            'price'       => 'required|int',
+            'status'      => 'required|string|',
         ]);
         if($room->update($updated_data)){
             return redirect()->route('admin.show.rooms')->with('notification',['type'=>'success','message'=>'Room '. $room->room_number . ' updated successfully']);

@@ -23,10 +23,10 @@ class RoomCreateRequest extends FormRequest
     {
         return [
             'room_type'   => 'required|string|',
-            'room_number' => 'required|string|max:3|unique:rooms,room_number',
+            'room_number' => 'required|integer|max:31000|unique:rooms,room_number',
             'status'      => 'required|string|',
             'image'       => 'required|mimes:jpg,jpeg,png,webp|',
-            'price'       => 'required|string',
+            'price'       => 'required|integer',
         ];
     }
 }

@@ -47,6 +47,9 @@ class BookingsController extends Controller
             'check_in' => 'required|date',
             'check_out' => 'required|date',
         ]);
+        if($validated['check_in'] == $validated['check_out']){
+            return redirect()->back()->with('notification', ['type' => 'danger', 'message' => 'check in and check out date cannot be the same']);
+        }
         $room_id = Room::where('room_number',$validated['room_number'])->get('id')[0]->id;
     
         Booking::create([

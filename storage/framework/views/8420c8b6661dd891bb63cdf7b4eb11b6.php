@@ -34,7 +34,7 @@
                                 class="w-100 h-100 object-fit-cover">
 
                         <span class="price-badge position-absolute bottom-0 end-0 m-2">
-                            <?php echo e($room->price); ?> <small class="text-light">/ night</small>
+                            $<?php echo e($room->price); ?> <small class="text-light">/ night</small>
                         </span>
 
                         </div>

@@ -47,7 +47,7 @@
                         </td>
                         <td>{{ $room->room_number }}</td>
                         <td>{{ ucfirst($room->room_type) }}</td>
-                        <td>{{ $room->price }}</td>
+                        <td>${{ $room->price }}</td>
                         <td>
                             <span class="badge bg-{{ $room->status == 'Available' ? 'success':'danger' }}">{{ $room->status }}</span>
                         </td>

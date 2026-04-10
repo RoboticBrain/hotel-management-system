@@ -25,7 +25,7 @@ class UserDashboardController extends Controller
     }
     public function getCompleteBookings() {
         $completed_bookings = Booking::where('customer_id', $this->getCustomerID())
-            ->whereDate('checked_out','<=',$this->getTodayDate())
+            ->where('payment_status','paid')
             ->whereNull('cancelled_at');
         return $completed_bookings;
     }

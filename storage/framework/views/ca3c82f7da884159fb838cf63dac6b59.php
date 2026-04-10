@@ -63,7 +63,7 @@
                         </td>
                         <td><?php echo e($room->room_number); ?></td>
                         <td><?php echo e(ucfirst($room->room_type)); ?></td>
-                        <td><?php echo e($room->price); ?></td>
+                        <td>$<?php echo e($room->price); ?></td>
                         <td>
                             <span class="badge bg-<?php echo e($room->status == 'Available' ? 'success':'danger'); ?>"><?php echo e($room->status); ?></span>
                         </td>
