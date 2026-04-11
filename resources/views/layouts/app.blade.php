@@ -313,7 +313,7 @@
         <div class="dropdown" style="height:20vh; display:flex; align-items:end">
             <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>{{ auth()->user()->customer ? auth()->user()->customer->first_name : auth()->user()->email }}</strong>
+                <strong>{{ auth()->user()->customer->first_name }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="{{ route('profile.edit',auth()->user()->id) }}">Settings</a></li>
